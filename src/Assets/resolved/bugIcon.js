@@ -9,7 +9,7 @@ const SELL = "sell"
 
 export default function BugIcon({traits, handlePocketClick}){
   let { name, bells, rarity, image, availability, small, hover} = traits
-  
+  image = require(image)
   const content = (
     hover ?
     <div>

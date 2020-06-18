@@ -10,6 +10,7 @@ const SELL = "sell"
 export default function FishIcon({traits, handlePocketClick}){
 
   let { name, bells, rarity, availability, image, small, hover} = traits
+  image = require(image)
 
   const content = (
     hover ?
