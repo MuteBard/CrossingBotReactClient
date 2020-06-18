@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom"
+import { BrowserRouter, Route, Switch} from "react-router-dom"
 
 import Header from './Components/Header'
 import Footer from './Components/Footer'
@@ -49,10 +49,9 @@ export default class App extends Component{
           ?
           <Switch>
             <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/> 
-            <Route exact path="/loading" render={() => <Loading state={this.state}/>}/>
-            <Redirect from='/profile' to="/loading" /> 
-            <Redirect from='/market' to="/loading" /> 
-            <Redirect from='/catch' to="/loading" /> 
+            <Route exact path="/profile" render={() => <Loading/>}/>
+            <Route exact path="/market" render={() => <Loading/>}/>
+            <Route exact path="/catch" render={() => <Loading/>}/>
           </Switch>
           :
           <Switch>
