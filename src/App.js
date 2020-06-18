@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch} from "react-router-dom"
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom"
 
 import Header from './Components/Header'
 import Footer from './Components/Footer'
-
+import loading from './Pages/Loading'
 import Home from './Pages/Home'
 import Market from './Pages/Market'
 import Catch from './Pages/Catch'
@@ -45,8 +45,18 @@ export default class App extends Component{
       <BrowserRouter>
         <Header state={this.state}/>
         {
+          this.state.authorized === false
+          ?
           <Switch>
-            <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/>       
+            <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/> 
+            <Route exact path="/loading" render={() => <Loading state={this.state}/>}/>
+            <Redirect from='/profile' to="/loading" /> 
+            <Redirect from='/market' to="/loading" /> 
+            <Redirect from='/catch' to="/loading" /> 
+          </Switch>
+          :
+          <Switch>
+            <Route exact path="/" render={() => <Home setGlobalUser={this.setUser} />}/>       
             <Route exact path="/profile" render={() => <Profile state={this.state}/>}/>
             <Route exact path="/market" render={() => <Market state={this.state}/>}/>
             <Route exact path="/catch" render={() => <Catch state={this.state}/>}/>
