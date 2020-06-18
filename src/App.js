@@ -45,12 +45,6 @@ export default class App extends Component{
       <BrowserRouter>
         <Header state={this.state}/>
         {
-          this.state.authorized === false
-          ?
-          <Switch>
-            <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/> 
-          </Switch>
-          :
           <Switch>
             <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/>       
             <Route exact path="/profile" render={() => <Profile state={this.state}/>}/>
