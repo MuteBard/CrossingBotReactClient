@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom"
 
 import Header from './Components/Header'
 import Footer from './Components/Footer'
-import loading from './Pages/Loading'
+import Loading from './Pages/Loading'
 import Home from './Pages/Home'
 import Market from './Pages/Market'
 import Catch from './Pages/Catch'
