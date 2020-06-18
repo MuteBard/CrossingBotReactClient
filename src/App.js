@@ -49,9 +49,6 @@ export default class App extends Component{
           ?
           <Switch>
             <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/> 
-            <Redirect from='/profile/' to="/" /> 
-            <Redirect from='/market/' to="/" /> 
-            <Redirect from='/catch/' to="/" /> 
           </Switch>
           :
           <Switch>
