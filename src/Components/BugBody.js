@@ -87,47 +87,48 @@ export default class BugBody extends Component{
     }
 
     interpretMonth = month => {
+        let result = ""
         switch(month){
             case "JAN":
-                return "January"
+                result = "January"
                 break
             case "FEB":
-                return "Febuary"
+                result = "Febuary"
                 break
             case "MAR":
-                return "March"
+                result = "March"
                 break
             case "APR":
-                return "April"
+                result = "April"
                 break
             case "MAY":
-                return "May"
+                result = "May"
                 break
             case "JUN":
-                return "June"
+                result = "June"
                 break
             case "JUL":
-                return "July"
+                result = "July"
                 break
             case "AUG":
-                return "August"
+                result = "August"
                 break
             case "SEP":
-                return "September"
+                result = "September"
                 break
             case "OCT":
-                return "October"
+                result = "October"
                 break
             case "NOV":
-                return "November"
+                result = "November"
                 break
             case "DEC":
-                return "December"
+                result = "December"
                 break
             default :
-                return "--"
-            
+                result = "--"   
         }
+        return result
     }
     
     render(){
