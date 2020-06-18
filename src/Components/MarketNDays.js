@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Line } from 'react-chartjs-2';
-import Route from '../Actions/Route'
+import * as Route from '../Actions/Route';
 
 
 let data = (parameters) =>{ return {

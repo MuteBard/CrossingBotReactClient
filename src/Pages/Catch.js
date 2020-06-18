@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Row, Col, Card, Radio, Modal, Button } from 'antd'; 
-import Route from '../Actions/Route'
+import * as Route from '../Actions/Route';
 
 import "antd/dist/antd.css";
 import "./css/pages.css" 

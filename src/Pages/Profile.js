@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Statistic, Button } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
-import Route from '../Actions/Route'    
+import * as Route from '../Actions/Route';    
 
 import "antd/dist/antd.css";
 import "./css/pages.css" 

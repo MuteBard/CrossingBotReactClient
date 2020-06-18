@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Row, Col, Card, Tabs, Statistic, Input, Select, Button, Table, Tag, Modal, InputNumber } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
-import Route from '../Actions/Route'
+import * as Route from '../Actions/Route';
 import "./css/pages.css"
 import Turnip from '../Assets/resolved/turnip'
 import MarketToday from '../Components/MarketToday'

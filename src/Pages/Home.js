@@ -3,7 +3,7 @@ import { Row, Col, Card, Radio } from 'antd';
 import generator from 'generate-password';
 import "antd/dist/antd.css";
 import "./css/pages.css"
-import Route from '../Actions/Route'
+import * as Route from '../Actions/Route';
 import HeroTop from '../Assets/resolved/HeroTop'
 import HeroBottom from '../Assets/resolved/HeroBottom'
 import LightCog from '../Assets/resolved/backgroundcogLight'
