@@ -55,7 +55,7 @@ export default class App extends Component{
           </Switch>
           :
           <Switch>
-            <Route exact path="/" render={() => <Home setGlobalUser={this.setUser} />}/>       
+            <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/>       
             <Route exact path="/profile" render={() => <Profile state={this.state}/>}/>
             <Route exact path="/market" render={() => <Market state={this.state}/>}/>
             <Route exact path="/catch" render={() => <Catch state={this.state}/>}/>

@@ -41,15 +41,16 @@ export default class Home extends Component {
   submitUser(){
     let setUserState = (data) => {
       this.setState({authorized : data.signIn})
+      console.log(data)
       if( data.signIn === true){
-        let gloabalState = ({
+        let globalState = ({
           username: this.state.usernameInput,
           id : this.state.id,
           avatar : this.state.avatar,
           authorized : true
        })
 
-       this.props.setGlobalUser(gloabalState)
+       this.props.setGlobalUser(globalState)
       }
     }
     let encryptedPw = this.state.usernameInput
@@ -60,6 +61,7 @@ export default class Home extends Component {
   confirmUser(){
     let userAuthenticated = (data) => {
       if (data !== null){
+        console.log(data)
         if(data.responded === true){
           if(data.scenario === 1){
             this.setState({
@@ -126,7 +128,7 @@ export default class Home extends Component {
   searchStep(message){
     let stepTitle = (message) => {
       return(
-        this.state.scenario == 1 || this.state.scenario == 2 || this.state.scenario == 3 
+        this.state.scenario === 1 || this.state.scenario === 2 || this.state.scenario === 3 
         ?
         <div>Found your account</div>
         :
@@ -136,7 +138,7 @@ export default class Home extends Component {
 
     let searchBox = () => {
       return(
-        this.state.scenario == 1 || this.state.scenario == 2 || this.state.scenario == 3  
+        this.state.scenario === 1 || this.state.scenario === 2 || this.state.scenario === 3  
         ?
         <div className="searchMessageContainer">
           <div className="searchMessage"><strong>{this.state.usernameInput}</strong><TwitchLogo/></div>
@@ -151,11 +153,11 @@ export default class Home extends Component {
     }
 
     let errorDisplay = () => {
-      if(this.state.scenario == 4){
+      if(this.state.scenario === 4){
         return(<div className={"error"}>You did not type !invite on your Twitch channel</div>)
-      }else if(this.state.scenario == 5){
+      }else if(this.state.scenario === 5){
         return(<div className={"error"}>This username is not a valid Twitch account</div>)
-      }else if(this.state.scenario == 6){
+      }else if(this.state.scenario === 6){
         return(<div className={"error"}>Something went wrong. Message MuteBard on Twitter below</div>)
       }
       else{
