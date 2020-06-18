@@ -1,0 +1,260 @@
+@darkgreen : #2A5D67;
+@green : #4AE3B5;
+@darkblue : #171332;
+@gray : #708090;
+@white: #FFFFFF;
+@twitch : #5F3BAD;
+@activeTwitch : #983BAD;
+@cardColor : #EEEEEE;
+@error : red;
+
+
+*{
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+
+
+    .HomeContainer{
+        font-family: 'Ubuntu', sans-serif;
+        
+        .error {
+            color : @error;
+            margin-left : 20px;
+        }
+
+        .welcome{
+            font-size: 70px;
+            text-align: center; 
+            // padding: 1em 0 2em 0;
+        }
+        .row{
+            margin-top : 3em;
+            .howToUse{
+                font-size: 40px;
+                // text-align: center; 
+                padding: 1em 0 0 0;
+            }
+            .listText{
+                font-size: 20px;
+
+                .searchUser{
+                    display:flex;
+                    // justify-content: center;
+                    align-items: center;
+
+  
+                    .profilePicture{
+                        width:2.6em;
+                        margin-left : 15px;
+                        border-radius: 5px;
+                    }
+                    .searchInputContainer{
+                        display : flex;
+                        .searchInput{
+                            margin-left : 15px;
+                            border-radius: 5px 0 0 5px;
+                            border : 3px solid @twitch;
+                            background-color: @cardColor;
+                            outline: none;
+                            font-weight: bold;
+                            padding : 8px;
+                        }
+                        .button{
+                            background-color : @twitch;
+                            border: none;
+                            outline: none;
+                            padding : 7px 5px 5px 5px;  
+                            border-radius: 0 5px 5px 0;
+                        }
+
+                        .button:active {
+                            background-color: @activeTwitch;
+                            box-shadow: 0 0px @gray;
+                        }
+
+                    }
+                    .searchMessageContainer{
+                        display : flex;
+                        align-items: center;
+                        .searchMessage{
+                            margin-left : 15px;
+                            border-radius: 5px;
+                            padding : 10px;
+                            background-color : @twitch;
+                            color : @white;
+                            .twitchImage{
+                                width : 1em;
+                                margin-left : 10px;
+                            }
+                        }
+                    }
+
+                }
+                .logInMessageContainer{
+                    display:flex;
+                    
+                    .logInMessage{
+                        display : flex;
+                        align-items: center;
+                        margin-left : 15px;
+                        border-radius: 5px;
+                        padding : 10px;
+                        background-color : @twitch;
+                        color : @white;   
+                    }
+                }
+                .PasswordInputContainer{
+                    display : flex;
+                    .PasswordInput{
+                        margin-left : 15px;
+                        border-radius: 5px 0 0 5px;
+                        border : 3px solid @twitch;
+                        background-color: @cardColor;
+                        outline: none;
+                        font-weight: bold;
+                        padding : 8px;
+                    }
+                    .button{
+                        background-color : @twitch;
+                        border: none;
+                        outline: none;
+                        padding : 7px 5px 5px 5px;  
+                        border-radius: 0 5px 5px 0;
+                    }
+
+                    .button:active {
+                        background-color: @activeTwitch;
+                        box-shadow: 0 0px @gray;
+                    }
+                }
+            
+                .creationMessageContainer{
+                    display : flex;
+                    align-items: center;
+                    .creationMessage{
+                        display : flex;
+                        align-items: center;
+                        margin-left : 15px;
+                        border-radius: 5px;
+                        padding : 10px;
+                        background-color : @twitch;
+                        color : @white;
+                    }
+                    .button {
+                        border: none;
+                        outline: none;
+                        box-shadow: 0 4px@gray;              
+                    }
+
+                    .button:active {
+                        background-color: @activeTwitch;
+                        box-shadow: 0 0px @gray;
+                        transform: translateY(4px);
+                    }
+                } 
+            
+
+
+
+            }
+        }
+        
+    }
+
+    .MarketContainer{
+        .ChartRow{
+            margin-bottom : 5em;
+        }
+        padding-top: 4em;
+        font-family: 'Ubuntu', sans-serif;
+        .TurnipsCol{
+            display : flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            .card{
+                .stats1{
+                    display: flex;
+                    justify-content : space-between;
+                }
+                .stats2{
+                    display: flex;
+                    justify-content : space-between;
+                    align-items: center;
+                    font-weight: 3em;
+                }
+                .inputGroup{
+                    display:flex;
+                    align-items: center;
+                    div{
+                        padding-left: 1em;
+                    }
+                }
+            }
+        }
+        .TitleCol{
+            padding-top: 4em;
+            .title{
+                font-size: 70px;
+            }
+        }
+        .TransactionCol{
+            .title{
+                font-size: 35px;
+            }
+        }
+    }
+
+    .CatchContainer{
+        padding-top: 4em;
+        font-family: 'Ubuntu', sans-serif;
+        .RadioRow{
+            padding-bottom: 2em;
+        }
+    }
+
+    .ProfileContainer{
+        // background-color : @white;
+        padding-top: 4em;
+        .profilePicture{
+            width: 15em;
+            border-radius: 8px;
+            margin-bottom : 3em;
+        }
+        .UsernameText{
+            font-size: 70px
+        }
+        .itemTitle{
+            font-size: 15px;
+            padding-bottom: 5px;
+        }
+        .bellStyle{
+            color : #4AE3B5;
+            font-size : 25px;
+        }
+        
+        .row{
+            margin-bottom: 5em;
+        }
+    }
+    
+}
+
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: .5s;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
