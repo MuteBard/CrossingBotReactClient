@@ -13,7 +13,6 @@ import Profile from './Pages/Profile'
 
 export default class App extends Component{
   state = {
-    id : "",  
     username : "",
     avatar : "",
     authorized : false
@@ -40,12 +39,13 @@ export default class App extends Component{
   }
   
   render(){ 
+    console.log(this.state)
     return (
       <div>
       <BrowserRouter>
         <Header state={this.state}/>
         {
-          this.state.authorized === false
+          this.state.authorized === false || this.state.authorized === null
           ?
           <Switch>
             <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/> 
@@ -55,7 +55,7 @@ export default class App extends Component{
           </Switch>
           :
           <Switch>
-            <Route exact path="/" render={() => <Home setGlobalUser={this.setUser} />}/>       
+            <Route exact path="/" render={() => <Home setGlobalUser={(data) => this.setGlobalUser(data)} />}/> 
             <Route exact path="/profile" render={() => <Profile state={this.state}/>}/>
             <Route exact path="/market" render={() => <Market state={this.state}/>}/>
             <Route exact path="/catch" render={() => <Catch state={this.state}/>}/>

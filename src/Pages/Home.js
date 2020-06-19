@@ -45,7 +45,6 @@ export default class Home extends Component {
       if( data.signIn === true){
         let globalState = ({
           username: this.state.usernameInput,
-          id : this.state.id,
           avatar : this.state.avatar,
           authorized : true
        })
@@ -74,7 +73,6 @@ export default class Home extends Component {
           }else{
            let gloabalState = ({
                username: this.state.usernameInput,
-               id : this.state.id,
                avatar : this.state.avatar,
                authorized : true
             })

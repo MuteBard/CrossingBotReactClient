@@ -26,7 +26,7 @@ const SELLALL = "sellall"
 export default class Catch extends Component {
     state = {
         visible: false,
-        username: this.props.state.username,
+        username: localStorage.getItem('username'),
         userBells : 0,
         species : BUG,
         name : "",
@@ -39,7 +39,12 @@ export default class Catch extends Component {
       };
 
     componentDidMount = () => {
-        this.updateData()
+        if(this.props.state !== undefined){
+            this.setState({
+                username : this.props.state.username
+            })
+            this.updateData()
+        }   
     }
 
     updateData = () => {

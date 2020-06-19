@@ -6,6 +6,7 @@ import * as Route from '../Actions/Route';
 import "antd/dist/antd.css";
 import "./css/pages.css" 
 
+// import Loading from './Loading'
 import LightCog from '../Assets/resolved/backgroundcogLight'
 import Bells from '../Assets/resolved/bells'
 import Turnip from '../Assets/resolved/turnip'
@@ -15,8 +16,8 @@ import Logo2 from '../Assets/resolved/logo2'
 
 export default class Catch extends Component {
     state = {
-        username : this.props.state.username,
-        avatar : this.props.state.avatar,
+        username : localStorage.getItem('username'),
+        avatar : localStorage.getItem('avatar'),
         quantity : 0,
         netGainLossAsBells: 0,
         netGainLossAsPercentage : 0,

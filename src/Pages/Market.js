@@ -3,6 +3,9 @@ import { Row, Col, Card, Tabs, Statistic, Input, Select, Button, Table, Tag, Mod
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import * as Route from '../Actions/Route';
 import "./css/pages.css"
+
+import Loading from './Loading'
+
 import Turnip from '../Assets/resolved/turnip'
 import MarketToday from '../Components/MarketToday'
 import MarketNDays from '../Components/MarketNDays'
@@ -14,7 +17,7 @@ const { Option } = Select;
 
 export default class Market extends Component {
     state = {
-        username : this.props.state.username,
+        username : localStorage.getItem('username'),
         loadings: [],
         visible: false,
         bells: 0,
@@ -310,6 +313,13 @@ export default class Market extends Component {
     render() {
         const { loadings } = this.state;
         return ( 
+            <>
+            {
+            this.state.username === ""
+            ?
+            <Loading/>
+            :
+            <>
             <div className="MarketContainer fade-in">
                 <Row className="MarketRow">
                     <Col className="TurnipsCol" span={5} offset={2}>
@@ -492,7 +502,9 @@ export default class Market extends Component {
                 }                   
                 <LightCog/>
             </div>
-            
+            </>
+            }
+            </>
         )
     }
 }
