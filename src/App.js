@@ -19,7 +19,6 @@ export default class App extends Component{
   }
 
   componentDidMount(){
-    console.log("authorized",localStorage.getItem('authorized'))
     this.setState({
       username : localStorage.getItem('username'),
       avatar : localStorage.getItem('avatar'),
@@ -29,7 +28,6 @@ export default class App extends Component{
 
 
   setGlobalUser = (data) => {
-    console.log(data)
     localStorage.setItem('username', data.username);
     localStorage.setItem('avatar', data.avatar);
     localStorage.setItem('authorized', data.authorized);
@@ -41,7 +39,6 @@ export default class App extends Component{
   }
   
   render(){ 
-    console.log(this.state)
     return (
       <div>
       <BrowserRouter>

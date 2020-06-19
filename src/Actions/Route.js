@@ -14,7 +14,6 @@ let RestCall = (config, callback) => {
 }
 
 export function authenticateUser(CBTC_Payload, callback){
-    console.log(CBTC_Payload)
     RestCall({
         url : `${CBTC_url}/authenticateUser`,
         method : "post",
@@ -29,7 +28,6 @@ let queryGraphQL = (query, callback) => {
         method: 'post',
         data: { query }
     }).then(CBAS_response => {
-        console.log(CBAS_response)
         if(callback != null){
             callback(CBAS_response.data.data)
         }

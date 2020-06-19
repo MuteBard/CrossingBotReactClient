@@ -9,8 +9,6 @@ import NamedLogo from '../Assets/resolved/namedLogo'
 
 export default function Header({state}){
 
-
-  console.log(state)
   return(
       <Row className = "Header" align="middle">
         <Col span={6}>

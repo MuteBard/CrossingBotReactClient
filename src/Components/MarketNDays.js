@@ -46,7 +46,6 @@ export default class MarketToday extends Component {
     
     nDaysRequest = (days) => {
         let marketForNDays = (data) => {
-            // console.log(data.getNDayRecords.map(mr => mr))
             let last = data.getNDayRecords.length - 1 
             let latestDate = `${data.getNDayRecords[0].month}/${data.getNDayRecords[0].day}/${data.getNDayRecords[0].year}`
             let earliestDate = `${data.getNDayRecords[last].month}/${data.getNDayRecords[last].day}/${data.getNDayRecords[last].year}`

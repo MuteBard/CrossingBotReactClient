@@ -34,7 +34,6 @@ export default class Catch extends Component {
 
     toggleCrossingBot(value){
         let updateUserChannelWithCrossingBot = (data) => {
-            console.log(data)
           if (data.isCrossingBotAdded === "Success"){
             this.setState({
                 addedToChannel : value

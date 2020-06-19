@@ -25,14 +25,12 @@ export default class Home extends Component {
   }
 
   usernameInputSearch(e){
-    console.log(e)
     this.setState({
       usernameInput : e
     })
   }
 
   passwordInput(e){
-    console.log(e)
     this.setState({
       passwordInput : e
     })
@@ -41,7 +39,6 @@ export default class Home extends Component {
   submitUser(){
     let setUserState = (data) => {
       this.setState({authorized : data.signIn})
-      console.log(data)
       if( data.signIn === true){
         let globalState = ({
           username: this.state.usernameInput,
@@ -60,7 +57,6 @@ export default class Home extends Component {
   confirmUser(){
     let userAuthenticated = (data) => {
       if (data !== null){
-        console.log(data)
         if(data.responded === true){
           if(data.scenario === 1){
             this.setState({

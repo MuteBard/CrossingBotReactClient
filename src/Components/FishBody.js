@@ -28,7 +28,6 @@ export default class FishBody extends Component{
             let secondsRemaining = lsSeconds - timeAway
             this.setState({seconds: secondsRemaining})
             setTimeout(() => {
-                console.log(this.state.seconds)
                 if(this.state.seconds > 0){
                     this.fishIsLocked() 
                 }  
