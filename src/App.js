@@ -60,14 +60,6 @@ export default class App extends Component{
             <Route exact path="/profile" render={() => <Profile state={this.state}/>}/>
             <Route exact path="/market" render={() => <Market state={this.state}/>}/>
             <Route exact path="/catch" render={() => <Catch state={this.state}/>}/>
-            <Route path='/twitter' component={() => { 
-                  window.location.href = 'https://twitter.com/MutinyBard'; 
-                  return <Route exact path="/" component={Home}/>
-            }}/>
-            <Route path='/paypal' component={() => { 
-                  window.location.href = 'https://paypal.me/MuteBard'; 
-                  return <Route exact path="/" component={Home}/>
-            }}/>
           </Switch>
         }
         <Footer/>

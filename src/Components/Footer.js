@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom"
 import { Row, Col } from 'antd'; 
 import "antd/dist/antd.css";
 
@@ -16,8 +15,8 @@ export default function Footer(){
         <Col span={2} className="iconText">Donate</Col>
       </Row>
       <Row>
-        <Col span={2} offset={20}><Link className="linkWrap" to='/twitter'><TwitterOutlined className="icon" style={{fontSize:"3em", color:"#4AE3B5"}}/></Link></Col>
-        <Col span={2}><Link className="linkWrap" to='/paypal'><DollarCircleOutlined className="icon" style={{fontSize:"3em", color:"#4AE3B5"}}/></Link></Col>
+        <Col span={2} offset={20}>< a href='https://twitter.com/MutinyBard'><TwitterOutlined className="icon" style={{fontSize:"3em", color:"#4AE3B5"}}/></a></Col>
+        <Col span={2}><a href='https://paypal.me/MuteBard'><DollarCircleOutlined className="icon" style={{fontSize:"3em", color:"#4AE3B5"}}/></a></Col>
       </Row>
     </div>
   )
