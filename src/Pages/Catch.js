@@ -112,8 +112,30 @@ export default class Catch extends Component {
         }
     }
 
-    render() {
-        return( 
+    isPhone = () =>{
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        return vw < 767
+      }
+    
+    isTouchpad = () =>{
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        return vw <= 1024 && vw >= 768
+    }
+
+
+
+    phone = () => {
+        <div className="CatchContainer">
+            {this.state.species === BUG ? <BugHeader/> : <FishHeader/>}
+        </div>
+    }
+
+    touchpad = () => {
+        
+    }
+
+    laptop = () => {
+        return(
             <div className="CatchContainer"> 
                 {this.state.species === BUG ? <BugHeader/> : <FishHeader/>}
                 <Row className="RadioRow">
@@ -154,5 +176,20 @@ export default class Catch extends Component {
                 
             </div> 
         )
+    }
+
+    view = () => {
+        if(this.isPhone()){
+          return this.phone()
+        } else if(this.isTouchpad()){
+          return this.touchpad()
+        }else{
+          return this.laptop()
+        }
+    }
+
+
+    render() {
+        return(this.view())
     }
 }

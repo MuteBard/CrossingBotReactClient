@@ -15,7 +15,7 @@ export default class App extends Component{
   state = {
     username : "",
     avatar : "",
-    authorized : false
+    authorized : true 
   }
 
   componentDidMount(){
@@ -28,6 +28,7 @@ export default class App extends Component{
 
 
   setGlobalUser = (data) => {
+    console.log(data)
     localStorage.setItem('username', data.username);
     localStorage.setItem('avatar', data.avatar);
     localStorage.setItem('authorized', data.authorized);

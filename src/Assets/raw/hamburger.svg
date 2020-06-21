@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 251 251">
+   <defs>
+     <style>
+     .hamcls-1{fill:#4ae3b5;}.hamcls-1,.hamcls-2{stroke-miterlimit:10;}.hamcls-2{fill:#2a5d67;stroke:#2a5d67;}
+
+svg:hover .block1{
+  animation: 1s burger-wiggle linear;
+  transition-timing-function: ease-in-out;
+}
+
+svg:hover .block2{
+  animation: 1s burger-wiggle linear;
+  transition-timing-function: ease-in-out;
+  animation-delay: 0.25s;
+}
+svg:hover .block3{
+  animation: 1s burger-wiggle linear;
+  transition-timing-function: ease-in-out;
+  animation-delay: 0.5s;
+}
+
+@keyframes burger-wiggle{
+  0%{
+    transform: translate(0%, 0%)
+  }
+  11%{
+    transform: translate(1%, 0%)
+  }
+  33%{
+    transform: translate(5%, 0%)
+  }
+  66%{
+    transform: translate(-5%, 0%)
+  }
+  88%{
+    transform: translate(-1%, 0%)
+  }
+  100%{
+    transform: translate(0%, 0%)
+  }
+}
+     </style>
+   </defs>
+   <g id="background">
+      <rect class="hamcls-1" x="0.5" y="0.5" width="250" height="250"/>
+   </g>
+   <g id="block1">
+      <rect class="block1 hamcls-2" x="45.15" y="162.36" width="165.4" height="44.29"/>
+   </g>
+   <g id="block2">
+      <rect class="block2 hamcls-2" x="45.15" y="105.61" width="165.4" height="44.29"/>
+   </g>
+   <g id="block3">
+      <rect class="block3 hamcls-2" x="45.15" y="48.86" width="165.4" height="44.29"/>
+   </g>
+</svg>

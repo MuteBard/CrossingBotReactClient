@@ -5,8 +5,8 @@ import './css/resolved.css'
 
 export default function HeroTop(){
   return(
-    <span>
-      <SVG className="heroBottom" src={heroTop}/>
+    <span className="HeroContainer">
+      <SVG className="heroTop" src={heroTop}/>
     </span>
   )
 }

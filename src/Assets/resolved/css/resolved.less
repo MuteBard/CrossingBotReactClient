@@ -1,8 +1,20 @@
 
+@phone: ~"(max-width: 767px)";
+@touchpad: ~"(max-width: 1024px) and (min-width: 768px)";
+@laptop: ~"(min-width: 1025px)";
+
 .turnip, .bugnet, .fishrod, .bells{
     width: 15em;
     margin-bottom: 4em; 
 }
+
+@media @phone{
+    .turnip, .bugnet, .fishrod, .bells{
+        width: 7em;
+        margin-bottom: 0;
+    }
+}
+
 .turnip{
     margin-bottom: 1em; 
 }
@@ -40,11 +52,32 @@
     width : 1em;    
     margin-left : 10px;
 }
+.hamburger{
+    height : 3em;
+}
+@media @phone{
+    .hamburger{
+        height : 2em;
+    }
+}
+
+
 .namedLogoContainer{
     padding : 0;
     margin: 0;
     .namedLogo{
         width : 50em;
+    }
+
+    @media @touchpad{
+        .namedLogo{
+            width : 50em;
+        }
+    }
+    @media @phone{
+        .namedLogo{
+            width : 20em;
+        }
     }
 }
 .hero{
@@ -52,8 +85,29 @@
     width: 101em;
 }
 
+.HeroContainer{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .heroTop, .heroBottom{
-    width: 101em;
+    max-width:100%;
+    height : 21em;   
+}
+
+@media @phone{
+    .heroTop, .heroBottom{
+        max-width:100%;
+        height : 7em;         
+    }
+}
+
+@media @touchpad{
+    .heroTop, .heroBottom{
+        max-width:100%;
+        height : 15em; 
+    }
 }
 
 .CogContainer{

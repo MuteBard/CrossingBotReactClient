@@ -8,33 +8,61 @@
 @cardColor : #EEEEEE;
 @error : red;
 
+@phone: ~"(max-width: 767px)";
+@touchpad: ~"(max-width: 1024px) and (min-width: 768px)";
+@laptop: ~"(min-width: 1025px)";
 
 *{
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     
-
-
     .HomeContainer{
-        font-family: 'Ubuntu', sans-serif;
-        
         .error {
             color : @error;
             margin-left : 20px;
         }
-
-        .welcome{
-            font-size: 70px;
-            text-align: center; 
-            // padding: 1em 0 2em 0;
+        .info {
+            color : @green;
+            margin-left : 20px;
         }
-        .row{
-            margin-top : 3em;
+        .Row2{
+            font-size: 70px;
+            text-align: center;   
+        }
+        @media @phone{
+            .Row2{
+                font-size: 25px;
+                text-align: center;   
+            }
+        }
+        @media @touchpad{
+            .Row2{
+                font-size: 60px;
+                text-align: center;   
+            }
+        }
+        .Row4, .Row5{
+            margin-top: 1em;
+            max-width: 100%;
+            display : flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
             .howToUse{
                 font-size: 40px;
-                // text-align: center; 
+                text-align: center; 
                 padding: 1em 0 0 0;
+            }
+            @media @phone{
+                .howToUse{
+                    font-size: 20px;
+                }
+            }
+            @media @touchpad{
+                .howToUse{
+                    font-size: 30px;
+                }
             }
             .listText{
                 font-size: 20px;
@@ -154,13 +182,18 @@
                         transform: translateY(4px);
                     }
                 } 
-            
-
-
-
+            }
+            @media @phone{
+                .listText{
+                    font-size: 12px;
+                }
+            }
+            @media @touchpad{
+                .listText{
+                    font-size: 15px;
+                }
             }
         }
-        
     }
 
     .MarketContainer{
@@ -206,6 +239,82 @@
             }
         }
     }
+
+    @media @phone{
+        .MarketContainer{
+            padding-top: 1em;
+            display : flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .Row2{
+                font-size: 25px;
+                text-align: center;   
+            }
+            .Row3{
+                margin-top : 1em;
+            }
+            .Row4{
+                margin-top : 1em;
+                .card{
+                    .stats2{
+                        font-size: 12px;
+                    }
+                }
+            }
+            .Row5{
+                margin-top : 1em;
+                .card{
+                    .stats2{
+                        font-size: 12px;
+                    }
+                }   
+            }
+            .Row6{
+                margin-top : .1em;
+                .Col1{
+                    font-size: 12px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    .item2, .item3, .item4{
+                        padding-top : 10px;
+                    }
+                }
+            }
+            .Row7{
+                margin-top : 1em;
+                .Transaction{
+                    display :flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .TransactionButtons{
+                        margin-top : 10px;
+                        display :flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        .Cancel{
+                            margin-right:10px;
+                        }
+                        .Confirm{
+                            margin-left:10px;
+                        }
+                    }
+                }
+            }
+            .Row8{
+                margin-top : 1em;
+                .card{
+                    .stats2{
+                        font-size: 12px;
+                    }
+                }   
+            }
+        }
+    }
+
 
     .CatchContainer{
         padding-top: 4em;

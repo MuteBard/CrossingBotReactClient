@@ -23,7 +23,7 @@ let data = (parameters) =>{ return {
         pointHoverBackgroundColor: parameters.now.secondary,
         pointHoverBorderColor: parameters.now.tertiary,
         pointHoverBorderWidth: 2,
-        pointRadius: 2,
+        pointRadius: 0,
         pointHitRadius: 10,
         data: parameters.now.prices
       }
@@ -80,12 +80,47 @@ export default class MarketToday extends Component {
         Route.queryMarketChartDataForNDays(CBAS_Payload, marketForNDays)
     }
 
-    render() {
 
+    isPhone = () => {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        return vw < 767
+      }
+    
+    isTouchpad = () => {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        return vw <= 1024 && vw >= 768
+    }
 
-        let colors = ["#4AE3B5","#2A5D67"] 
-        // let colors = this.state.firstRecordedPrice >  this.state.lastRecordedPrice ?  ["#E34A78","#A41943"] : ["#4AE3B5","#2A5D67"] 
+    phone = (parameters) => {
+        parameters["title"] = this.props.title
+        return (
+            <div>
+                <div className="chartTitle" style={{fontSize:"15px", fontFamily:"Ubuntu", textAlign:"center"}}><strong>{parameters.title}</strong></div>
+                <Line data={data(parameters)} height={250} />
+            </div>
+        )
+    }
 
+    touchpad = (parameters) => {
+        return (
+            <div>
+                <div className="chartTitle" style={{fontSize:"25px", fontFamily:"Ubuntu", textAlign:"center"}}><strong>{parameters.title}</strong></div>
+                <Line data={data(parameters)} />
+            </div>
+        )
+    }
+
+    laptop = (parameters) => {
+        return (
+            <div>
+                <div className="chartTitle" style={{fontSize:"30px", fontFamily:"Ubuntu", textAlign:"center"}}><strong>{parameters.title}</strong></div>
+                <Line data={data(parameters)} />
+            </div>
+        )
+    }
+
+    view = () => {
+        let colors = this.state.firstRecordedPrice >  this.state.lastRecordedPrice ?  ["#E34A78","#A41943"] : ["#4AE3B5","#2A5D67"] 
         let parameters = {
             title : `TURNIP PRICES FOR ${this.state.earliestDate} - ${this.state.latestDate}`,
             times :  this.state.turnipsHistory.map(data => `${data.hour}:${data.minute < 10 ? "0"+data.minute : data.minute} ${data.month}/${data.day}`).reverse(),
@@ -97,13 +132,20 @@ export default class MarketToday extends Component {
                 tertiary : "#171332"
             }
         }
-        return ( 
-            <div>
-                <div className="chartTitle" style={{fontSize:"30px", fontFamily:"Ubuntu", textAlign:"center"}}><strong>{parameters.title}</strong></div>
-                <Line data={data(parameters)} />
-            </div>
-        )
+        if(this.isPhone()){
+            return this.phone(parameters)
+        }else if(this.isTouchpad()){
+            return this.touchpad(parameters)
+        }else{
+            return this.laptop(parameters)
+        }
     }
+        
+        
+    render() {
+        return(this.view())
+    }
+    
 }
 
 

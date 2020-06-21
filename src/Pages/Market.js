@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Row, Col, Card, Tabs, Statistic, Input, Select, Button, Table, Tag, Modal, InputNumber } from 'antd';
+import { Row, Col, Card, Tabs, Statistic, Input, Select, Button, Table, Tag, Modal, InputNumber, Menu, Dropdown } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import * as Route from '../Actions/Route';
 import "./css/pages.css"
@@ -18,6 +18,7 @@ const { Option } = Select;
 export default class Market extends Component {
     state = {
         username : localStorage.getItem('username'),
+        menuItem : 1,
         loadings: [],
         visible: false,
         bells: 0,
@@ -286,12 +287,18 @@ export default class Market extends Component {
     }
 
     statistic(base, current, unit, arrow) {
+        let fontSize = 25
+        if (this.isPhone()){
+            fontSize = 15
+        }
+
+
         return (
             current >= base ?
             <Statistic
                 value={current}
                 precision={0}
-                valueStyle={{ color: '#4AE3B5' }}
+                valueStyle={{ color: '#4AE3B5', fontSize : fontSize }}
                 prefix={ arrow ? <ArrowUpOutlined/> : undefined }
                 suffix={ unit !== undefined ? unit : undefined }
             /> 
@@ -299,7 +306,7 @@ export default class Market extends Component {
             <Statistic
                 value={current}
                 precision={0}
-                valueStyle={{ color: '#E34A78' }}
+                valueStyle={{ color: '#E34A78', fontSize : fontSize }}
                 prefix={ arrow ? <ArrowDownOutlined/> : undefined }
                 suffix={ unit !== undefined ? unit : undefined}
              /> 
@@ -310,16 +317,192 @@ export default class Market extends Component {
         console.log(key);
     }
 
-    render() {
+    isPhone = () =>{
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        return vw < 767
+      }
+    
+    isTouchpad = () =>{
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        return vw <= 1024 && vw >= 768
+    }
+
+    phone = () => {
         const { loadings } = this.state;
-        return ( 
-            <>
-            {
-            this.state.username === ""
-            ?
-            <Loading/>
-            :
-            <>
+
+        let confirm = () => {
+            if (this.state.verified.status === ""){
+                if(this.state.select.business === ""){
+                    return(            
+                        <Button type="primary" disabled loading={loadings[0]} onClick={() =>this.enterLoading(0)}>
+                            Confirm
+                        </Button>
+                    )
+                }else{
+                    return(
+                        <Button type="primary" loading={loadings[0]} onClick={() =>this.enterLoading(0)}>
+                            Confirm
+                        </Button>
+                    )
+                }
+            }else{
+                return null
+            }
+        }
+
+        let checkOut = () => {
+            if(this.state.verified.status !== ""){
+                return(
+                    <Card style={{ width: 300, backgroundColor : "#EEEEEE" }}>
+                        {
+                            this.state.verified.marketPrice === this.state.latestTurnip.price ?
+                            <div>   
+                                {this.state.verified.status === "Authorized" 
+                                ?             
+                                <div className="Transaction">                           
+                                    <div className="TransactionMessage">You are {this.state.verified.status} to {this.state.select.business} {this.state.select.quantity} turnip(s) for a market price of {this.state.verified.marketPrice} bells for a total of {this.state.verified.totalBells} bells. Would you like to confirm this transaction?</div>
+                                    <div className="TransactionButtons">
+                                        <Button className="Cancel" key="back" onClick={this.handleCancel}>
+                                            Cancel
+                                        </Button>
+                                        <Button className="Confirm" key="submit" type="primary" onClick={this.handleOk}>
+                                            Confirm
+                                        </Button>
+                                    </div>
+                                </div>
+                                :
+                                <p>                           
+                                    {this.state.verified.status}
+                                </p>
+                                }
+                            </div>
+                            :
+                            <div> 
+                                The prices for turnips has changed. Therefore your turnip transaction has expired. Please submit a new transaction based on the new market price.
+                                <Button key="back" onClick={this.handleCancel}>
+                                    Confirm
+                                </Button>                                
+                            </div>
+                            }
+                        </Card>
+                    )
+            }else{
+                return null
+            }
+        }
+
+        return(
+            <div className="MarketContainer fade-in">
+                <div className="Row1">
+                    <Turnip/>
+                </div>
+                <div className="Row2">
+                    <div className="title"><strong>STALK MARKET</strong></div>
+                </div>
+                <div className="Row3">
+                    <MarketToday title="TODAY" turnipData={this.state.turnipHistory} date={this.state.date} colors={this.state.latestTurnip.price <  this.state.opening ?  ["#E34A78","#A41943"] : ["#4AE3B5","#2A5D67"] }/>
+                    {/* <MarketNDays title="PAST WEEK" days={7}/>
+                    <MarketNDays title="PAST MONTH" days={30}/> */}
+                </div>
+                
+                <div className = "Row4">
+                    <Card className="card" style={{ width: 300, backgroundColor : "#EEEEEE"}}>
+                        <div className="stats2">
+                            <div><strong>Market Price</strong></div> 
+                            {this.statistic(this.state.opening, this.state.latestTurnip.price,"bells", false)}
+                        </div>
+                        <div className="stats2">
+                            <div><strong>Opening Price</strong></div> 
+                            <div>{this.statistic(0, this.state.opening,"bells", false)}</div>
+                        </div>
+                        <div className="stats2">
+                            <div><strong>Today's High</strong></div>
+                            <div>{this.statistic(this.state.opening, this.state.todayHigh,"bells", false)}</div>
+                        </div>
+                        <div className="stats2">
+                            <div><strong>Today's Low</strong></div>
+                            <div>{this.statistic(this.state.opening, this.state.todayLow,"bells", false)}</div>
+                        </div>
+                        <div className="stats2">
+                            <div><strong>Worldwide</strong></div>
+                            <div>{this.statistic(0, this.state.stalksPurchased,"turnips", false)}</div>
+                        </div>
+                    </Card>
+                </div>
+                <div className = "Row5">
+                    <Card className="card" style={{ width: 300, backgroundColor : "#EEEEEE" }}>
+                        <div className="stats2">
+                            <strong>Bells in Wallet</strong>
+                            <div>{this.statistic(0, this.state.bells, "bells", false)}</div>
+                        </div>
+                    </Card>
+                </div>
+                <div className = "Row6">
+                    <Card style={{ width: 300, backgroundColor : "#EEEEEE" }}>
+                        <Input.Group compact className="inputGroup">
+                            <div className="Col1">
+                                <div className="item1">
+                                    <strong>How many turnips will you {this.state.select.business === "" ? "buy" : this.state.select.business }?</strong>
+                                </div>
+                                <div className="item2">
+                                    <Select style={{ paddingRight: "10px" }} defaultValue="Business" onChange={this.handleTurnipBusiness}>
+                                        <Option value="Buy">Buy</Option>
+                                        <Option value="Sell">Sell</Option>
+                                    </Select>
+                                </div>
+                                <div className="item3">
+                                    <InputNumber min={1} max={99999999} defaultValue={0} style={{ width: 100 }} onChange={this.handleTurnipQuantity}/>
+                                </div>
+                                <div className="item4"> 
+                                    {confirm()}
+                                </div>
+                            </div>
+                        </Input.Group>
+                    </Card>
+                </div>
+                <div className = "Row7">
+                    {checkOut()}
+                </div>
+                <div className = "Row8">
+                    <Card className="card" style={{ width: 300, backgroundColor : "#EEEEEE" }}>
+                        <div className="stats2">
+                            <strong>Locked Market Price</strong>
+                            <div>{this.statistic(0, this.state.liveTurnips.marketPrice, "bells", false)}</div>
+                        </div>
+                        <div className="stats2">
+                            <div><strong>Turnips Held</strong></div>
+                            <div>{this.statistic(0, this.state.liveTurnips.quantity, "turnip(s)", false)}</div>
+                        </div>
+                        <div className="stats2">
+                            <strong>Liquidated Sum</strong>
+                            <div>{this.statistic(this.state.liveTurnips.marketPrice * this.state.liveTurnips.quantity, this.state.latestTurnip.price * this.state.liveTurnips.quantity, "bells", false)}</div>
+                        </div>
+                        <div className="stats2">
+                            <div><strong>Overall Return (bells)</strong></div>
+                            <div>{this.statistic(0, this.state.liveTurnips.netGainLossAsBells, "bells", this.state.liveTurnips.netGainLossAsBells !== 0 ? true : false)}</div>
+                        </div>
+                        <div className="stats2">
+                            <div><strong>Overall Return (%)</strong></div>
+                            <div>{this.statistic(0, this.state.liveTurnips.netGainLossAsPercentage, "%", this.state.liveTurnips.netGainLossAsPercentage !== 0 ? true : false)}</div>
+                        </div>
+                    </Card>
+                </div>
+                <div className = "Row9">
+                    <LightCog/>
+                </div>
+
+            </div>
+
+        )
+    }
+
+    touchpad = () => {
+        return this.laptop()
+    }
+
+    laptop = () => {
+        const { loadings } = this.state;
+        return(
             <div className="MarketContainer fade-in">
                 <Row className="MarketRow">
                     <Col className="TurnipsCol" span={5} offset={2}>
@@ -412,7 +595,7 @@ export default class Market extends Component {
                                 <div>{this.statistic(this.state.opening, this.state.todayLow,"bells", false)}</div>
                             </div>
                             <div className="stats2">
-                                <div><strong>Worldwide Purchases</strong></div>
+                                <div><strong>Worldwide</strong></div>
                                 <div>{this.statistic(0, this.state.stalksPurchased,"turnips", false)}</div>
                             </div>
                         </Card>
@@ -502,9 +685,22 @@ export default class Market extends Component {
                 }                   
                 <LightCog/>
             </div>
-            </>
-            }
-            </>
+        )
+    }
+
+    view = () => {
+        if(this.isPhone()){
+          return this.phone()
+        } else if(this.isTouchpad()){
+          return this.touchpad()
+        }else{
+          return this.laptop()
+        }
+    }
+
+    render() {
+        return ( 
+            this.view()
         )
     }
 }

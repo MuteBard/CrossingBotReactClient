@@ -5,6 +5,10 @@
 @gray: #AAAAAA;
 
 
+@phone: ~"(max-width: 767px)";
+@touchpad: ~"(max-width: 1024px) and (min-width: 768px)";
+@laptop: ~"(min-width: 1025px)";
+
 
 *{
     box-sizing: border-box;
@@ -12,33 +16,125 @@
     -moz-osx-font-smoothing: grayscale;
     font-family: 'Ubuntu', sans-serif;
     
+    .MenuItem{
+        display : flex;
+        .text {
+            margin-left : 1em;
+            color : @darkgreen;
+        }
+    }
+
     .Header{
+        height : 7.85em; 
+        margin-bottom: 10px;
         background-color: @green;
-        padding-bottom: 0;
-        height : 7.85em;
         font-family: 'Ubuntu', sans-serif;
-        color : @darkgreen;
-        .headerItem{
-            .linkWrap{
-                display:flex;
-                flex-direction: column;
-                justify-content: center;
-                .headerText{
-                    text-align: center;
-                    color : @darkgreen;
+        // border : 2px solid blue;
+
+        .Row1{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .Col2, .Col3, .Col4{
+                margin-right : 8em;
+                a {
+                    color : @darkgreen; 
+                }
+            }
+            .Col2 {
+                margin-left : 20em;
+            }
+            @media @laptop{
+                .Col2 {
+                    margin-left : 20em; 
+                    // border: 2px solid black;
+                }
+                .Col2, .Col3, .Col4{
+                    margin-right : 10em;
+                }
+            }
+            @media @touchpad{
+                .Col2 {
+                    margin-left : 0em; 
+                    // border: 2px solid red;
+                }
+                .Col2, .Col3, .Col4{
+                    margin-right : 0em;
+                }
+            }
+            @media @phone{
+                .Col2 {
+                    margin-left : 0em; 
+                    // border: 2px solid green;
+                }
+                .Col2, .Col3, .Col4{
+                    margin-right : 0em;
+                }
+            }
+
+        }
+        @media @phone{
+            .Row1 {
+                justify-content: space-between;  
+                .Col2{
+                    margin-right : 1em;
+                }   
+            }       
+        }
+
+        @media @touchpad{
+            .Row1 {
+                justify-content: space-between;
+                .Col2{
+                    margin-right : 4em;
+                }  
+            }      
+        }
+
+    }
+
+    @media @phone{
+        .Header{
+            height : 3.15em; 
+            margin-bottom: 0;
+        }
+    }
+
+    .Footer{
+        background-color: @darkgreen;
+        color: @green;
+        padding : 2em 0 2em 0;   
+        .Row1{
+            display : flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            
+            .Col1, .Col2{
+                margin-right : 8em;
+                display : flex;
+                flex-direction: column; 
+                align-items: center;
+            }
+            @media @phone{
+                .Col1, .Col2{
+                    margin-right : 1em;
+                }
+            }
+
+            @media @touchpad{
+                .Col1, .Col2{
+                    margin-right : 4em;
                 }
             }
         }
     }
-    .Footer{
-        // font-family: 'Ubuntu', sans-serif;
-        background-color: @darkgreen;
-        padding : 2em 0 2em 0;   
-        
-        .iconText{
-            color : @green;
+
+    @media @phone{
+        .Footer{
+            padding : .3em 0 .3em 0;
         }
     }
+
 
     .BugHeaderContainer{
         // font-family: 'Ubuntu', sans-serif;
