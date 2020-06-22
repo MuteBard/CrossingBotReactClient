@@ -7,9 +7,7 @@ const axios = require('axios')
 
 let CBTC_BASEURL = 'http://localhost:4000';
 let CBAS_BASEURL = 'http://localhost:5000';
-if (window.location.hostname != 'localhost'){
-  BASEURL = '';
-}
+
 
 
 //REST (client)
@@ -19,7 +17,7 @@ let RestCall = (config, callback) => {
 
 export function authenticateUser(CBTC_Payload, callback){
     RestCall({
-        url : `${CBTC_url}/authenticateUser`,
+        url : `${CBTC_BASEURL}/authenticateUser`,
         method : "post",
         data : CBTC_Payload
     }, callback)
@@ -28,7 +26,7 @@ export function authenticateUser(CBTC_Payload, callback){
 //GraphQL (client)
 let queryGraphQL = (query, callback) => {
     axios({
-        url : `${CBAS_url}/api/grapql`,
+        url : `${CBAS_BASEURL}/api/grapql`,
         method: 'post',
         data: { query }
     }).then(CBAS_response => {
