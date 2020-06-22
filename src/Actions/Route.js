@@ -1,11 +1,15 @@
-const CBAS_url = "http://localhost:5000/api/graphql"
-const CBTC_url = "http://localhost:4000"
 const BUG = "bug"  
 const FISH  = "fish" 
 const Query = require('./Queries')
 const Mutation = require('./Mutations')
 const axios = require('axios')
 
+
+let CBTC_BASEURL = 'http://localhost:4000';
+let CBAS_BASEURL = 'http://localhost:5000';
+if (window.location.hostname != 'localhost'){
+  BASEURL = '';
+}
 
 
 //REST (client)
@@ -24,7 +28,7 @@ export function authenticateUser(CBTC_Payload, callback){
 //GraphQL (client)
 let queryGraphQL = (query, callback) => {
     axios({
-        url : CBAS_url,
+        url : `${CBAS_url}/api/grapql`,
         method: 'post',
         data: { query }
     }).then(CBAS_response => {
