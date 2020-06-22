@@ -92,7 +92,7 @@ export async function mutateCatchCatchOneCreature (CBAS_Payload, callback){
     let mutation = Mutation.UPDATE_USER_CATCH_CATCH_ONE(CBAS_Payload.username, CBAS_Payload.species)
     
     let CBAS_Response = await axios({
-        url : CBAS_url,
+        url : CBAS_BASEURL,
         method: 'post',
         data: { query : mutation }
     }).catch(error => {
