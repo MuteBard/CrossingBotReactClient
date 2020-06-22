@@ -3,10 +3,10 @@ const FISH  = "fish"
 const Query = require('./Queries')
 const Mutation = require('./Mutations')
 const axios = require('axios')
+let CBTC_BASEURL = 'https://crossing-bot-twitch-connector.herokuapp.com';
+let CBAS_BASEURL = 'https://crossing-bot-akka-server.herokuapp.com';
 
 
-let CBTC_BASEURL = 'http://localhost:4000';
-let CBAS_BASEURL = 'http://localhost:5000';
 
 
 
@@ -26,7 +26,7 @@ export function authenticateUser(CBTC_Payload, callback){
 //GraphQL (client)
 let queryGraphQL = (query, callback) => {
     axios({
-        url : `${CBAS_BASEURL}/api/grapql`,
+        url : `${CBAS_BASEURL}/api/graphql`,
         method: 'post',
         data: { query }
     }).then(CBAS_response => {
@@ -92,7 +92,7 @@ export async function mutateCatchCatchOneCreature (CBAS_Payload, callback){
     let mutation = Mutation.UPDATE_USER_CATCH_CATCH_ONE(CBAS_Payload.username, CBAS_Payload.species)
     
     let CBAS_Response = await axios({
-        url : CBAS_BASEURL,
+        url : `${CBAS_BASEURL}/api/graphql`,
         method: 'post',
         data: { query : mutation }
     }).catch(error => {
