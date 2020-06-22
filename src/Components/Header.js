@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom"
-import { Avatar, Menu, Dropdown, Icon } from 'antd';
+import { Avatar, Menu, Dropdown} from 'antd';
 import { BugOutlined, StockOutlined } from '@ant-design/icons'; 
 import "antd/dist/antd.css";
 import './css/components.css'
@@ -10,35 +10,6 @@ import Hamburger from '../Assets/resolved/hamburger'
 
 
 export default function Header({state}){
-
-
-  let isPhone = () =>{
-    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    return vw < 767
-  }
-
-  let isTouchPad = () =>{
-    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    return vw <= 1024 && vw >= 768
-  }
-
-
-  let dynamicColumns = () => {
-    if(true){
-      return (
-        <>
-
-        </>
-      )
-    }else{
-      return (
-        null
-      )
-    }
-  }
-
-  console.log(state)
-
 
   const menu = (
     <Menu>
@@ -72,7 +43,7 @@ export default function Header({state}){
   );
 
 
-  let mobile = () => {
+  let phone = () => {
     return(
       <div className="Header">
         <div className="Row1">
@@ -93,7 +64,7 @@ export default function Header({state}){
     )
   }
 
-  let touchPad = () => {
+  let touchpad = () => {
     return(
       <div className="Header">
         <div className="Row1">
@@ -114,7 +85,7 @@ export default function Header({state}){
     )
   } 
 
-  let desktop = () => {
+  let laptop = () => {
     return(
       <div className="Header">
         <div className="Row1">
@@ -145,53 +116,15 @@ export default function Header({state}){
     )
   }
 
-
-
-
   let view = () => {
-    if(isPhone()){
-      return mobile() 
-    } else if(isTouchPad()){
-      return touchPad()
+    if(state.media === "phone"){
+        return phone()
+    } else if(state.media === "touchpad"){
+        return touchpad()
     }else{
-      return desktop()
+        return laptop()
     }
   }
 
   return(view())
 }
-
-
-
-{/* <Row className = "Header" align="middle">
-<Col span={6}>
-  <Link to='/'>
-    <NamedLogo/>
-  </Link>
-</Col>
-{
-  state.authorized 
-  ?
-  <>
-    <Col className="headerItem" span={3} offset={8}>
-      <Link className="linkWrap" to='/catch'>
-        <div class="headerText">Catch</div>
-        <BugOutlined style={{fontSize:"3em", color:"#2A5D67"}}/>
-      </Link>
-    </Col>
-    <Col className="headerItem" span={3}>
-      <Link className="linkWrap" to='/market'>
-        <div class="headerText">Market</div>
-        <StockOutlined style={{fontSize:"3em", color:"#2A5D67"}}/>
-      </Link>
-    </Col>
-    <Col className="headerProfile" span={3} offset={1}>
-      <Link className="linkWrap" to='/profile'>
-          <Avatar shape="square" size={64} src={state.avatar} />
-      </Link>
-    </Col> 
-  </>
-  :
-  null
-}
-</Row> */}

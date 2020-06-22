@@ -7,8 +7,26 @@ import "./css/components.css"
 import FishRod from '../Assets/resolved/fishrod'
 
 export default class FishHeader extends Component {
-    render() {
-        return( 
+
+    phone = () => {
+        return(
+            <div className="FishHeaderContainer fade-in">
+                <div className="Row1">
+                    <FishRod/>
+                </div>
+                <div className="Row2">
+                    <div><strong>CATCHING FISHES</strong></div>
+                </div>
+            </div>
+        )
+    }
+
+    touchpad = () => {
+        return this.laptop()
+    }
+
+    laptop = () => {
+        return(
             <Row className="FishHeaderContainer fade-in">
                 <Col className="FishRodCol" span={4} offset={3}>
                     <FishRod/>
@@ -19,4 +37,22 @@ export default class FishHeader extends Component {
             </Row>
         )
     }
+
+    view = () => {
+        if(this.props.isPhone){
+            return this.phone()
+        } else if(this.props.touchpad){
+            return this.touchpad()
+        }else{
+            return this.laptop()
+        }
+    }
+
+
+    render() {
+        return(this.view())
+    }
+
 }
+
+

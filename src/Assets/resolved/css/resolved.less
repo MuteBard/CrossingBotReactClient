@@ -1,18 +1,12 @@
 
 @phone: ~"(max-width: 767px)";
+@phone2: ~"(max-width: 767px) and (min-height: 737px)";
 @touchpad: ~"(max-width: 1024px) and (min-width: 768px)";
 @laptop: ~"(min-width: 1025px)";
 
 .turnip, .bugnet, .fishrod, .bells{
     width: 15em;
     margin-bottom: 4em; 
-}
-
-@media @phone{
-    .turnip, .bugnet, .fishrod, .bells{
-        width: 7em;
-        margin-bottom: 0;
-    }
 }
 
 .turnip{
@@ -22,6 +16,18 @@
     width: 17.5em;
 }
 
+
+@media @phone{
+    .turnip, .bugnet, .fishrod, .bells{
+        width: 7em;
+        margin-bottom: 0;
+    }
+    .fishrod,{
+        width: 8em;
+    }
+}
+
+
 .profileturnip, .profilebugnet, .profilefishrod, .profilebells, .profilelogo{
     width: 10em;
 }
@@ -29,9 +35,40 @@
 .bugIcon, .fishIcon{
     width: 10em;
 }
+@media @phone{
+    .bugIcon, .fishIcon{
+        width: 8em;
+    }  
+}
+
+.Icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .bugIconSmall, .fishIconSmall{
-    width: 8em;
+    width: 6em;
+}
+
+
+@media @phone{
+    .bugIconSmall, .fishIconSmall{
+        width: 3em;
+    }  
+}
+
+@media @phone{
+    .loading{
+        margin-top: 12em;
+        margin-bottom: 14em;
+    }
+}
+@media @phone2{
+    .loading{
+        margin-top: 13em;
+        margin-bottom: 20em;
+    }
 }
 
 .logo{

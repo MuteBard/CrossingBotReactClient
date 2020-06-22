@@ -5,6 +5,7 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import PocketFish from '../Assets/resolved/fishIcon'
 import "antd/dist/antd.css";
 import "./css/components.css"
+import timing from "../Cron/Timing"
 
 const CATCH = "catch"
 const FISH = "fish"
@@ -16,6 +17,7 @@ export default class FishBody extends Component{
     state = {
         seconds : 0,
     }
+
 
     componentDidMount = () => {
         let lsSeconds = localStorage.getItem('fishSeconds')
@@ -37,13 +39,17 @@ export default class FishBody extends Component{
         }
     }
 
-    statistic(base, current, unit, arrow) {
+    statistic(base, current, unit, arrow, isPhone) {
+        let fontSize = 25
+        if (isPhone){
+            fontSize = 15
+        }
         return (
-            current > base ?
+            current >= base ?
             <Statistic
                 value={current}
                 precision={0}
-                valueStyle={{ color: '#4AE3B5' }}
+                valueStyle={{ color: '#4AE3B5', fontSize : fontSize }}
                 prefix={ arrow ? <ArrowUpOutlined/> : undefined }
                 suffix={ unit !== undefined ? unit : undefined }
             /> 
@@ -51,9 +57,9 @@ export default class FishBody extends Component{
             <Statistic
                 value={current}
                 precision={0}
-                valueStyle={{ color: '#E34A78' }}
+                valueStyle={{ color: '#E34A78', fontSize : fontSize }}
                 prefix={ arrow ? <ArrowDownOutlined/> : undefined }
-                suffix={ unit !== undefined ? unit : undefined }
+                suffix={ unit !== undefined ? unit : undefined}
              /> 
         )
     }
@@ -84,68 +90,27 @@ export default class FishBody extends Component{
         }
     }
     
-    interpretMonth = month => {
-        let result = ""
-        switch(month){
-            case "JAN":
-                result = "January"
-                break
-            case "FEB":
-                result = "Febuary"
-                break
-            case "MAR":
-                result = "March"
-                break
-            case "APR":
-                result = "April"
-                break
-            case "MAY":
-                result = "May"
-                break
-            case "JUN":
-                result = "June"
-                break
-            case "JUL":
-                result = "July"
-                break
-            case "AUG":
-                result = "August"
-                break
-            case "SEP":
-                result = "September"
-                break
-            case "OCT":
-                result = "October"
-                break
-            case "NOV":
-                result = "November"
-                break
-            case "DEC":
-                result = "December"
-                break
-            default :
-                result = "--"   
-        }
-        return result
-    }
-
-    render(){
-        let { name, bells, rarity, availability, pocketFishes, userBells} = this.props.data
-        let { handleClick } = this.props
-        let percentProgress = parseInt(100 * (60 - this.state.seconds) / 60)
-        let displayseconds = this.state.seconds
-
-        return( 
-            <div>
-                <Row className="FishBodyContainer fade-in">
-                    <Col className="FishRodCol" span={5} offset={2}> 
-                        <Card className="card">
-                            <div className="stats2">
-                                <strong>Bells Earned</strong>
-                                <div>{this.statistic(0, userBells, "bells", false)}</div>
-                            </div>
-                        </Card>
-                        {this.state.seconds === 0 
+    
+    phone = ({
+        name,
+        bells,
+        rarity,
+        img,
+        availability,
+        isPhone,
+        pocketFishes,
+        userBells,
+        handleClick,
+        percentProgress,
+        displayseconds
+    }) => {
+        const cardHeaderStyle = {width: 300, textAlign : "center", color : "#2A5D67", backgroundColor : "#4AE3B5",  fontSize : "19px" }
+        const cardBodyStyle = { width: 300, textAlign : "center", color : "#4AE3B5", backgroundColor : "#2A5D67", fontSize : "15px" }
+        return(
+            <div className="FishBodyContainer fade-in">
+                <div className="Row1">
+                    {
+                        this.state.seconds === 0 
                         ?
                         <Card className="fade-in">
                             <Button type="primary" block onClick={() => {
@@ -163,73 +128,206 @@ export default class FishBody extends Component{
                             <Progress type="circle" percent={percentProgress} strokeColor={"#4AE3B5"} format={percent => `${displayseconds} sec`} />
                         </div>
                     }
-                    </Col>
-
-
-
-
-
-                    <Col span={10} offset={4}>
-                        {name !== "" 
-                            ?
-                            <div className="fade-in">
-                                <Card title={name.toUpperCase()} bordered={false} headStyle={cardHeaderStyle} bodyStyle={cardBodyStyle}>
-                                    <p>You have caught a {name}!</p>
-                                    <p>Bells: {bells}</p>
-                                    <p>Rarity Level: {rarity}</p>
-                                    <p>Availability: {availability.map(month => `${this.interpretMonth(month)}, `)}</p>
+                </div>
+                <div className="Row2">
+                    <Card className="card">
+                        <div className="stats2">
+                            <div>{this.statistic(0, userBells, "bells", false, isPhone)}</div>
+                        </div>
+                    </Card>
+                </div>
+                <div className="Row3">
+                    <PocketFish traits={{name,bells,rarity,img,availability}} isPhone={true}/> 
+                </div>
+                <div className="Row4">
+                    {
+                        name !== "" 
+                        ?
+                        <div className="fade-in">
+                            <Card title={name.toUpperCase()} bordered={false} headStyle={cardHeaderStyle} bodyStyle={cardBodyStyle}>
+                                <p>You have caught a {name}!</p>
+                                <p>Bells: {bells}</p>
+                                <p>Rarity Level: {rarity}</p>
+                                <p>Availability: {availability.map(month => `${timing.userFriendlyMonth(month)}, `)}</p>
+                            </Card>
+                        </div>
+                        :
+                        null
+                    }
+                </div>
+                <div className="Row5">
+                    {
+                        pocketFishes.length > 0
+                    ? 
+                    <div>
+                        <p className="PocketColTitle">Your Pocket</p>
+                        <Card style={{ width: 300, backgroundColor : "#EEEEEE" }}>
+                            {pocketFishes.map((data, idx) => <PocketFish key = {idx} handlePocketClick={handleClick} traits={{name : data.name, img : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
+                        </Card>
+                    </div>
+                    :
+                    <Card style={{ width: 300, backgroundColor : "#EEEEEE" }}>
+                        <p className="PocketColTitle">Your Pocket is Empty</p>
+                    </Card>
+                    }
+                </div>
+                <div className="Row6">
+                    {
+                        pocketFishes.length > 0
+                    ? 
+                        <Card>
+                            <Button type="primary" block onClick={() => {handleClick(SELLALL,FISH)}}>
+                                Sell all Fishes
+                            </Button>
+                        </Card>
+                    :
+                        null
+                    }
+                </div>
+                <div className="Row7">
+                </div>
+                <div className="Row8">
+                </div>
+            </div>
+        )
+    }
+    touchpad = (variables) => {
+        return (this.laptop(variables))
+    }
+    laptop = ({
+        name,
+        bells,
+        rarity,
+        availability,
+        pocketFishes,
+        userBells,
+        handleClick,
+        percentProgress,
+        displayseconds
+    }) => {
+        return( 
+            <div>
+            <Row className="FishBodyContainer fade-in">
+                <Col className="FishRodCol" span={5} offset={2}> 
+                    <Card className="card">
+                        <div className="stats2">
+                            <strong>Bells Earned</strong>
+                            <div>{this.statistic(0, userBells, "bells", false)}</div>
+                        </div>
+                    </Card>
+                    {this.state.seconds === 0 
+                    ?
+                    <Card className="fade-in">
+                        <Button type="primary" block onClick={() => {
+                            this.setState({seconds : 60})
+                            setTimeout(() => {
+                                this.fishIsLocked() 
+                            }, 100);
+                            return handleClick(CATCH,FISH) 
+                        }}>
+                            Catch a Fish
+                        </Button>
+                    </Card>
+                    :
+                    <div className="timer">
+                        <Progress type="circle" percent={percentProgress} strokeColor={"#4AE3B5"} format={percent => `${displayseconds} sec`} />
+                    </div>
+                }
+                </Col>
+                <Col span={10} offset={4}>
+                    {name !== "" 
+                        ?
+                        <div className="fade-in">
+                            <Card title={name.toUpperCase()} bordered={false} headStyle={cardHeaderStyle} bodyStyle={cardBodyStyle}>
+                                <p>You have caught a {name}!</p>
+                                <p>Bells: {bells}</p>
+                                <p>Rarity Level: {rarity}</p>
+                                <p>Availability: {availability.map(month => `${timing.userFriendlyMonth(month)}, `)}</p>
+                            </Card>
+                        </div>
+                        :
+                        null
+                    }
+                </Col>
+            </Row>
+            {
+                pocketFishes !== []
+                ? 
+                <div>
+                    <Row className="PocketContainer">
+                        <Col className="PocketCol" span={20} offset={2}>
+                            
+                            {
+                                pocketFishes.length > 0
+                            ? 
+                            <div>
+                                <p className="PocketColTitle">Your Pocket</p>
+                                <Card>
+                                    {pocketFishes.map((data,idx) => <PocketFish key = {idx} handlePocketClick={handleClick} traits={{name : data.name, image : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
                                 </Card>
                             </div>
                             :
-                            null
-                        }
-                    </Col>
-                </Row>
-                {
-                    pocketFishes !== []
-                    ? 
-                    <div>
-                        <Row className="PocketContainer">
-                            <Col className="PocketCol" span={20} offset={2}>
-                                
-                                {
-                                    pocketFishes.length > 0
-                                ? 
-                                <div>
-                                    <p className="PocketColTitle">Your Pocket</p>
-                                    <Card>
-                                        {pocketFishes.map(data => <PocketFish handlePocketClick={handleClick} traits={{name : data.name, image : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
-                                    </Card>
-                                </div>
-                                :
-                                <p className="PocketColTitle">Your Pocket is Empty</p>
-                                }
+                            <p className="PocketColTitle">Your Pocket is Empty</p>
+                            }
 
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={5} offset={2}>
-                                <div className="sellAllCard">
-                                {
-                                    pocketFishes.length > 0
-                                ? 
-                                    <Card>
-                                        <Button type="primary" block onClick={() => {handleClick(SELLALL,FISH)}}>
-                                            Sell all Fishes
-                                        </Button>
-                                    </Card>
-                                :
-                                    null
-                                }
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
-                    :
-                    null
-                }
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={5} offset={2}>
+                            <div className="sellAllCard">
+                            {
+                                pocketFishes.length > 0
+                            ? 
+                                <Card>
+                                    <Button type="primary" block onClick={() => {handleClick(SELLALL,FISH)}}>
+                                        Sell all Fishes
+                                    </Button>
+                                </Card>
+                            :
+                                null
+                            }
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+                :
+                null
+            }
 
             </div>
         )
+    }
+
+    view = () => {
+        let { name, bells, img, rarity, availability, pocketFishes, userBells} = this.props.data
+        let { handleClick, isPhone, isTouchpad } = this.props 
+        let percentProgress = parseInt(100 * (60 - this.state.seconds) / 60)
+        let displayseconds = this.state.seconds
+
+        let variables = {
+            name,
+            bells,
+            img,
+            rarity,
+            availability,
+            isPhone,
+            pocketFishes,
+            userBells,
+            handleClick,
+            percentProgress,
+            displayseconds
+        }
+
+        if(isPhone){
+          return this.phone(variables, isPhone)
+        } else if(isTouchpad){
+          return this.touchpad(variables)
+        }else{
+          return this.laptop(variables)
+        }
+    }
+    
+    render(){
+        return(this.view())
     }
 }

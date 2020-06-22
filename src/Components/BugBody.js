@@ -5,6 +5,7 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import PocketBug from '../Assets/resolved/bugIcon'
 import "antd/dist/antd.css";
 import "./css/components.css"
+import timing from "../Cron/Timing"
 
 const CATCH = "catch"
 const BUG = "bug"
@@ -38,14 +39,18 @@ export default class BugBody extends Component{
         }
     }
 
-    statistic(base, current, unit, arrow) {
+    statistic(base, current, unit, arrow, isPhone) {
+        let fontSize = 25
+        if (isPhone){
+            fontSize = 17
+        }
 
         return (
-            current > base ?
+            current >= base ?
             <Statistic
                 value={current}
                 precision={0}
-                valueStyle={{ color: '#4AE3B5' }}
+                valueStyle={{ color: '#4AE3B5', fontSize : fontSize }}
                 prefix={ arrow ? <ArrowUpOutlined/> : undefined }
                 suffix={ unit !== undefined ? unit : undefined }
             /> 
@@ -53,9 +58,9 @@ export default class BugBody extends Component{
             <Statistic
                 value={current}
                 precision={0}
-                valueStyle={{ color: '#E34A78' }}
+                valueStyle={{ color: '#E34A78', fontSize : fontSize }}
                 prefix={ arrow ? <ArrowDownOutlined/> : undefined }
-                suffix={ unit !== undefined ? unit : undefined }
+                suffix={ unit !== undefined ? unit : undefined}
              /> 
         )
     }
@@ -85,56 +90,121 @@ export default class BugBody extends Component{
         }
     }
 
-    interpretMonth = month => {
-        let result = ""
-        switch(month){
-            case "JAN":
-                result = "January"
-                break
-            case "FEB":
-                result = "Febuary"
-                break
-            case "MAR":
-                result = "March"
-                break
-            case "APR":
-                result = "April"
-                break
-            case "MAY":
-                result = "May"
-                break
-            case "JUN":
-                result = "June"
-                break
-            case "JUL":
-                result = "July"
-                break
-            case "AUG":
-                result = "August"
-                break
-            case "SEP":
-                result = "September"
-                break
-            case "OCT":
-                result = "October"
-                break
-            case "NOV":
-                result = "November"
-                break
-            case "DEC":
-                result = "December"
-                break
-            default :
-                result = "--"   
-        }
-        return result
+
+    phone = ({
+        name,
+        bells,
+        rarity,
+        img,
+        availability,
+        pocketBugs,
+        userBells,
+        handleClick,
+        isPhone,
+        percentProgress,
+        displayseconds
+    }) => {
+        const cardHeaderStyle = {width: 300, textAlign : "center", color : "#2A5D67", backgroundColor : "#4AE3B5",  fontSize : "19px" }
+        const cardBodyStyle = { width: 300, textAlign : "center", color : "#4AE3B5", backgroundColor : "#2A5D67", fontSize : "15px" }
+        return(
+            <div className="BugBodyContainer fade-in">
+                <div className="Row1">
+                    {
+                        this.state.seconds === 0 
+                        ?
+                        <Card className="fade-in">
+                            <Button type="primary" block onClick={() => {
+                                this.setState({seconds : 60})
+                                setTimeout(() => {
+                                    this.bugIsLocked() 
+                                }, 100);
+                                return handleClick(CATCH,BUG) 
+                            }}>
+                                Catch a Bug
+                            </Button>
+                        </Card>
+                        :
+                        <div className="timer">
+                            <Progress type="circle" percent={percentProgress} strokeColor={"#4AE3B5"} format={percent => `${displayseconds} sec`} />
+                        </div>
+                    }
+                </div>
+                <div className="Row2">
+                    <Card className="card">
+                        <div className="stats2">
+                            <div>{this.statistic(0, userBells, "bells", false, isPhone)}</div>
+                        </div>
+                    </Card>
+                </div>
+                <div className="Row3">
+                    <PocketBug traits={{name,bells,rarity,img,availability}} isPhone={true}/> 
+                </div>
+                <div className="Row4">
+                {
+                    name !== "" 
+                    ?
+                    <div className="fade-in">
+                        <Card title={name.toUpperCase()} bordered={false} headStyle={cardHeaderStyle} bodyStyle={cardBodyStyle}>
+                            <p>You have caught a {name}!</p>
+                            <p>Bells: {bells}</p>
+                            <p>Rarity Level: {rarity}</p>
+                            <p>Availability: {availability.map(month => `${timing.userFriendlyMonth(month)}, `)}</p>
+                        </Card>
+                    </div>
+                    :
+                    null
+                }  
+                </div>
+                <div className="Row5">                    
+                    {
+                        pocketBugs.length > 0
+                    ? 
+                        <div>
+                            <p className="PocketColTitle">Your Pocket</p>
+                            <Card style={{ width: 300, backgroundColor : "#EEEEEE" }}>
+                                {pocketBugs.map((data, idx) => <PocketBug key = {idx} handlePocketClick={handleClick} traits={{name : data.name, img : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
+                            </Card>
+                        </div>
+                    :
+                        <Card style={{ width: 300, backgroundColor : "#EEEEEE" }}>
+                            <p className="PocketColTitle">Your Pocket is Empty</p>
+                        </Card>
+                    }
+                </div>
+
+                <div className="Row6">
+                    {
+                        pocketBugs.length > 0
+                    ? 
+                        <Card>
+                            <Button type="primary" block onClick={() => {handleClick(SELLALL,BUG)}}>
+                                Sell All Bugs
+                            </Button>
+                        </Card>
+                    :
+                        null
+                    }
+                </div>
+                <div className="Row7">
+                </div>
+            </div>
+        )
     }
-    
-    render(){
-        let { name, bells, rarity, availability, pocketBugs, userBells} = this.props.data
-        let { handleClick } = this.props 
-        let percentProgress = parseInt(100 * (60 - this.state.seconds) / 60)
-        let displayseconds = this.state.seconds
+    touchpad = (variables) => {
+        return (this.laptop(variables))
+    }
+    laptop = ({
+        name,
+        bells,
+        rarity,
+        img,
+        availability,
+        pocketBugs,
+        userBells,
+        handleClick,
+        percentProgress,
+        displayseconds
+    }) => {
         return( 
             <div>
                 <Row className="BugBodyContainer fade-in">
@@ -172,7 +242,7 @@ export default class BugBody extends Component{
                                     <p>You have caught a {name}!</p>
                                     <p>Bells: {bells}</p>
                                     <p>Rarity Level: {rarity}</p>
-                                    <p>Availability: {availability.map(month => `${this.interpretMonth(month)}, `)}</p>
+                                    <p>Availability: {availability.map(month => `${timing.userFriendlyMonth(month)}, `)}</p>
                                 </Card>
                             </div>
                             :
@@ -193,7 +263,7 @@ export default class BugBody extends Component{
                                     <div>
                                         <p className="PocketColTitle">Your Pocket</p>
                                         <Card>
-                                            {pocketBugs.map(data => <PocketBug handlePocketClick={handleClick} traits={{name : data.name, image : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
+                                            {pocketBugs.map((data, idx) => <PocketBug key={idx}  handlePocketClick={handleClick} traits={{name : data.name, image : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
                                         </Card>
                                     </div>
                                 :
@@ -225,5 +295,38 @@ export default class BugBody extends Component{
                 }
             </div>
         )
+    }
+
+    view = () => {
+        let { name, bells, img, rarity, availability, pocketBugs, userBells} = this.props.data
+        let { handleClick, isPhone, isTouchpad } = this.props 
+        let percentProgress = parseInt(100 * (60 - this.state.seconds) / 60)
+        let displayseconds = this.state.seconds
+
+        let variables = {
+            name,
+            bells,
+            rarity,
+            img,
+            availability,
+            isPhone,
+            pocketBugs,
+            userBells,
+            handleClick,
+            percentProgress,
+            displayseconds
+        }
+
+        if(isPhone){
+          return this.phone(variables)
+        } else if(isTouchpad){
+          return this.touchpad(variables)
+        }else{
+          return this.laptop(variables)
+        }
+    }
+    
+    render(){
+        return(this.view())
     }
 } 

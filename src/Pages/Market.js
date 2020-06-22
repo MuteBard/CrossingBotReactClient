@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
-import { Row, Col, Card, Tabs, Statistic, Input, Select, Button, Table, Tag, Modal, InputNumber, Menu, Dropdown } from 'antd';
+import { Row, Col, Card, Tabs, Statistic, Input, Select, Button, Table, Tag, Modal, InputNumber} from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import * as Route from '../Actions/Route';
 import "./css/pages.css"
 
-import Loading from './Loading'
-
 import Turnip from '../Assets/resolved/turnip'
 import MarketToday from '../Components/MarketToday'
 import MarketNDays from '../Components/MarketNDays'
-import LightCog from '../Assets/resolved/backgroundcogLight'
 const CronJob = require('cron').CronJob
 
 const { TabPane } = Tabs; 
@@ -17,7 +14,7 @@ const { Option } = Select;
 
 export default class Market extends Component {
     state = {
-        username : localStorage.getItem('username'),
+        username: this.props.state.username,
         menuItem : 1,
         loadings: [],
         visible: false,
@@ -288,7 +285,7 @@ export default class Market extends Component {
 
     statistic(base, current, unit, arrow) {
         let fontSize = 25
-        if (this.isPhone()){
+        if (this.props.state === "phone"){
             fontSize = 15
         }
 
@@ -315,16 +312,6 @@ export default class Market extends Component {
 
     getChartTabData(key) {
         console.log(key);
-    }
-
-    isPhone = () =>{
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-        return vw < 767
-      }
-    
-    isTouchpad = () =>{
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-        return vw <= 1024 && vw >= 768
     }
 
     phone = () => {
@@ -487,10 +474,6 @@ export default class Market extends Component {
                         </div>
                     </Card>
                 </div>
-                <div className = "Row9">
-                    <LightCog/>
-                </div>
-
             </div>
 
         )
@@ -683,18 +666,18 @@ export default class Market extends Component {
                         
                     </Modal>
                 }                   
-                <LightCog/>
             </div>
         )
     }
 
     view = () => {
-        if(this.isPhone()){
-          return this.phone()
-        } else if(this.isTouchpad()){
-          return this.touchpad()
+         let { media } = this.props.state
+        if(media === "phone"){
+            return this.phone()
+        } else if(media === "touchpad"){
+            return this.touchpad()
         }else{
-          return this.laptop()
+            return this.laptop()
         }
     }
 

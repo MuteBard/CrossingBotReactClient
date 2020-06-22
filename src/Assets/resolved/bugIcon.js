@@ -8,7 +8,7 @@ const BUG = "bug"
 const SELL = "sell"
 
 export default function BugIcon({traits, handlePocketClick}){
-  let { name, bells, rarity, image, availability, small, hover} = traits
+  let { name, bells, rarity, img, availability, small, hover} = traits
 
   const content = (
     hover ?
@@ -36,9 +36,9 @@ export default function BugIcon({traits, handlePocketClick}){
         
         <Popover content={content} title={name}>
           {
-            image 
+            img
             ? 
-            <img alt={name} className={small ? "bugIconSmall fade-in" : "bugIcon fade-in" } src={image}/>
+            <img alt={name} className={small ? "bugIconSmall fade-in" : "bugIcon fade-in" } src={img}/>
             :
             <SVG className={small ? "bugIconSmall fade-in" : "bugIcon fade-in" } src={bugIcon}/>
           }  
@@ -46,11 +46,11 @@ export default function BugIcon({traits, handlePocketClick}){
       
         :
 
-        <div>
+        <div className="Icon">
         {
-          image 
+          img
           ? 
-          <img alt={name} className={small ? "bugIconSmall fade-in" : "bugIcon fade-in" } src={image}/>
+          <img alt={name} className={small ? "bugIconSmall fade-in" : "bugIcon fade-in" } src={img}/>
           :
           <SVG className={small ? "bugIconSmall fade-in" : "bugIcon fade-in" } src={bugIcon}/>
         } 

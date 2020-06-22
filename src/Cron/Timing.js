@@ -1,90 +1,44 @@
-const CronJob = require('cron').CronJob
-let currentMonth = () => {
-        let monthNum = (new Date()).getMonth()
-        switch(monthNum){
-            case 0 : 
-                return "JAN";
-                break;
-            case 1 : 
-                return "FEB";
-                break;
-            case 2 : 
-                return "MAR";
-                break;
-            case 3 : 
-                return "APR";
-                break;
-            case 4 : 
-                return "MAY";
-                break;
-            case 5 : 
-                return "JUN";
-                break;
-            case 6 : 
-                return "JUL";
-                break;
-            case 7 : 
-                return "AUG";
-                break;
-            case 8 : 
-                return "SEP";
-                break;
-            case 9 : 
-                return "OCT";
-                break;
-            case 10 : 
-                return "NOV";
-                break;
-            case 11 : 
-                return "DEC";
-        }
+export default function userFriendlyMonth(month){
+    let result = ""
+    switch(month){
+        case "JAN" : 
+            result =  "January";
+            break;
+        case "FEB" : 
+            result =  "Feburary";
+            break;
+        case "MAR" : 
+            result =  "March";
+            break;
+        case "APR" : 
+            result =  "April";
+            break;
+        case "MAY" : 
+            result =  "May";
+            break;
+        case "JUN" : 
+            result =  "June";
+            break;
+        case "JUL" : 
+            result =  "July";
+            break;
+        case "AUG" : 
+            result =  "August";
+            break;
+        case "SEPT" : 
+            result =  "September";
+            break;
+        case "OCT" : 
+            result =  "October";
+            break;
+        case "NOV" : 
+            result =  "November";
+            break;
+        case "DEC" : 
+            result =  "December"; 
+            break;
+        default :
+            result = "" 
     }
-    
-    let userFriendlyMonth = (month) => {
-        switch(month){
-            case "JAN" : 
-                return "January";
-                break;
-            case "FEB" : 
-                return "Feburary";
-                break;
-            case "MAR" : 
-                return "March";
-                break;
-            case "APR" : 
-                return "April";
-                break;
-            case "MAY" : 
-                return "May";
-                break;
-            case "JUN" : 
-                return "June";
-                break;
-            case "JUL" : 
-                return "July";
-                break;
-            case "AUG" : 
-                return "August";
-                break;
-            case "SEPT" : 
-                return "September";
-                break;
-            case "OCT" : 
-                return "October";
-                break;
-            case "NOV" : 
-                return "November";
-                break;
-            case "DEC" : 
-                return "December";
-        }
-    }
-    
-    let month = currentMonth()
-    let job = new CronJob('0 0 1 * *', () => {
-        month = currentMonth()
-      }, null, true, 'America/Los_Angeles');
-    job.start();
-
-module.exports.friendly =  userFriendlyMonth(month)
-module.exports.month = "[\""+month+"\"]"
+    return result
+}

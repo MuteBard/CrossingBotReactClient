@@ -9,7 +9,7 @@ const SELL = "sell"
 
 export default function FishIcon({traits, handlePocketClick}){
 
-  let { name, bells, rarity, availability, image, small, hover} = traits
+  let { name, bells, rarity, availability, img, small, hover} = traits
 
   const content = (
     hover ?
@@ -36,19 +36,19 @@ export default function FishIcon({traits, handlePocketClick}){
         ? 
         <Popover content={content} title={name}>
           {
-            image 
+            img
             ? 
-            <img alt={name} className={small ? "fishIconSmall fade-in" : "fishIcon fade-in"} src={image}/>
+            <img alt={name} className={small ? "fishIconSmall fade-in" : "fishIcon fade-in"} src={img}/>
             :
             <SVG className={small ? "fishIconSmall fade-in" : "fishIcon fade-in" } src={fishIcon}/>
           } 
         </Popover>
         :
-        <div>
+        <div className="Icon">
           {
-            image 
+            img 
             ? 
-            <img alt={name} className={small ? "fishIconSmall fade-in" : "fishIcon fade-in"} src={image}/>
+            <img alt={name} className={small ? "fishIconSmall fade-in" : "fishIcon fade-in"} src={img}/>
             :
             <SVG className={small ? "fishIconSmall fade-in" : "fishIcon fade-in" } src={fishIcon}/>
           } 

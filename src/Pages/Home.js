@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Row, Col, Card, Radio } from 'antd'; 
+import {Card, Radio } from 'antd'; 
 import generator from 'generate-password';
 import "antd/dist/antd.css";
 import "./css/pages.css"
 import * as Route from '../Actions/Route';
 import HeroTop from '../Assets/resolved/HeroTop'
 import HeroBottom from '../Assets/resolved/HeroBottom'
-import LightCog from '../Assets/resolved/backgroundcogLight'
 import TwitchLogo from '../Assets/resolved/twitchLogo'
 import Logo from '../Assets/resolved/logo'
 import MagnifyingGlass from '../Assets/resolved/magnifyingGlass'
@@ -250,20 +249,11 @@ export default class Home extends Component {
     }
   }
 
-  isPhone = () =>{
-    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    return vw < 767
-  }
-
-  isTouchPad = () =>{
-    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    return vw <= 1024 && vw >= 768
-  }
-
   view = () => {
-    if(this.isPhone()){
+      let { media } = this.props.state
+    if(media === "phone"){
       return {cardSize : 360}
-    } else if(this.isTouchPad()){
+    }else if(media === "touchpad"){
       return {cardSize : 800}
     }else{
       return {cardSize : 1200}
@@ -343,82 +333,6 @@ export default class Home extends Component {
             </ul>
           </Card>
         </div>
-        <div className="Row6">
-          <LightCog/>
-        </div>
-        {/* <HeroTop/>
-        <Row align="middle">
-          <Col span={24}>
-            <div className="welcome"><strong>WELCOME TO CROSSINGBOT</strong></div>
-          </Col>
-        </Row>
-        <HeroBottom/> */}
-        {/* <Row className="row" align="middle">
-          <Col span={22} offset={2}>
-            <Card style={{ width: 1200, backgroundColor : "#EEEEEE" }}>
-              
-              <Radio.Group onChange={this.onChange} value={this.state.radio} defaultValue="REGISTER">
-                <Radio.Button value={"REGISTER"}>REGISTER</Radio.Button>
-                <Radio.Button value={"SIGN IN"}>SIGN IN</Radio.Button>
-              </Radio.Group>
-              {
-                this.state.radio === "REGISTER"
-                ?
-                <div className="howToUse"><strong>Join The Village!</strong></div>
-                :
-                <div className="howToUse"><strong>Welcome Back!</strong></div>
-              }
-              
-              {
-                this.state.radio === "REGISTER" 
-                ?
-                <ol className="listText">
-                  <li>First make sure you have a Twitch account at https://www.twitch.tv/</li>
-                  {this.searchStep("Please enter for your Twitch username here (Case Sensitive)")}
-                  <li>In another tab, open your Twitch chat within your channel and type !invite</li>
-                  {this.providedPwBox()}
-                  {
-                    this.state.scenario > 1
-                    ?
-                    <li>Awesome! {this.state.usernameInput}, you are all set to use CrossingBot either on Twitch or on this website!  </li>
-                    :
-                    null
-                  }
-                </ol>
-                
-                :
-                <ol className="listText">
-                  {this.searchStep("Welcome Back! Please enter your username (Case Sensitive)")}
-                  {this.inputPwBox()}
-                </ol>
-              }
-            </Card>
-          </Col>
-        </Row> */}
-        {/* <Row className="row" align="middle">
-          <Col span={22} offset={2}>
-            <Card style={{ width: 1200, backgroundColor : "#EEEEEE" }}>
-              <div className="howToUse"><strong>Twitch Commands</strong></div>
-              <ul className="listText">
-              <li><strong>!bug</strong> Catch a bug</li>
-              <li><strong>!fish</strong> Catch a fish</li>
-              <li><strong>!sell [creature name]</strong> Removes a bug or fish from your pocket and you get its value in bells stored to your own bells</li>
-              <li><strong>!sell all</strong> Removes everything from your pocket and you get the total value in bells added to your own bells</li>
-              <li><strong>!rare bugs</strong> List rare bugs available this month</li>
-              <li><strong>!rare fishes</strong> List rare fishes available this month</li>
-              <li><strong>!pocket</strong> Displays all bugs and fish in your pocket</li>
-              <li><strong>!bells</strong> Displays current bells owned</li>
-              <li><strong>!turnips</strong> Displays how many turnips you own and how they are faring in the market</li>
-              <li><strong>!market</strong> Displays the prices of turnips on the ever changing Stalk Market</li>
-              <li><strong>!buy [quantity] turnips</strong> Allows you to buy turnips</li>
-              <li><strong>!sell [quantity] turnips</strong> Allows you to sell turnips</li>
-              <li><strong>!confirm</strong> Allows for execution of a turnip transaction</li>
-              <li><strong>!cancel</strong> Allows for termination of a turnip transaction</li>
-              </ul>
-            </Card>
-          </Col>
-        </Row>
-        <LightCog/> */}
       </div> 
     )
   }

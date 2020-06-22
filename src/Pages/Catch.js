@@ -9,7 +9,6 @@ import BugHeader from '../Components/BugHeader'
 import FishHeader from '../Components/FishHeader'
 import BugBody from '../Components/BugBody'
 import FishBody from '../Components/FishBody'
-import LightCog from '../Assets/resolved/backgroundcogLight'
 
 import DisplayBug from '../Assets/resolved/bugIcon'
 import DisplayFish from '../Assets/resolved/fishIcon'
@@ -26,7 +25,7 @@ const SELLALL = "sellall"
 export default class Catch extends Component {
     state = {
         visible: false,
-        username: localStorage.getItem('username'),
+        username: this.props.state.username,
         userBells : 0,
         species : BUG,
         name : "",
@@ -39,12 +38,7 @@ export default class Catch extends Component {
       };
 
     componentDidMount = () => {
-        if(this.props.state !== undefined){
-            this.setState({
-                username : this.props.state.username
-            })
-            this.updateData()
-        }   
+        this.updateData() 
     }
 
     updateData = () => {
@@ -112,26 +106,31 @@ export default class Catch extends Component {
         }
     }
 
-    isPhone = () =>{
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-        return vw < 767
-      }
-    
-    isTouchpad = () =>{
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-        return vw <= 1024 && vw >= 768
-    }
-
-
-
     phone = () => {
-        <div className="CatchContainer">
-            {this.state.species === BUG ? <BugHeader/> : <FishHeader/>}
-        </div>
+        return(
+            <div className="CatchContainer">
+                <div className="Row1 Row">
+                    {this.state.species === BUG ? <BugHeader isPhone={true}/> : <FishHeader isPhone={true}/>}
+                </div>
+                <div className="Row2 Row">
+                    <Card>
+                        <Radio.Group size="large" onChange={this.speciesSelect} value={this.state.species}>
+                            <Radio.Button value={BUG}>Catch Bugs</Radio.Button>
+                            <Radio.Button value={FISH}>Catch Fishes</Radio.Button>
+                        </Radio.Group>
+                    </Card>
+                </div>
+                <div className="Group4 Row">
+                    {this.state.species === BUG ? <BugBody data={this.state} handleClick={this.handleChildClick} isPhone={true}/> : <FishBody data={this.state} handleClick={this.handleChildClick} isPhone={true}/>}
+                </div>
+                <div className="Row5">
+                </div>
+            </div>
+        )
     }
 
     touchpad = () => {
-        
+        return this.laptop()
     }
 
     laptop = () => {
@@ -171,20 +170,19 @@ export default class Catch extends Component {
                     <p>
                         Sell a couple {this.state.species === BUG ? "bugs" : "fishes"} first before catching more
                     </p>
-                </Modal>
-                <LightCog/>
-                
+                </Modal>                
             </div> 
         )
     }
 
     view = () => {
-        if(this.isPhone()){
-          return this.phone()
-        } else if(this.isTouchpad()){
-          return this.touchpad()
+        let { media } = this.props.state
+        if(media === "phone"){
+            return this.phone()
+        } else if(media === "touchpad"){
+            return this.touchpad()
         }else{
-          return this.laptop()
+            return this.laptop()
         }
     }
 
