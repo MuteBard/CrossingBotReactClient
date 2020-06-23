@@ -52,7 +52,7 @@ export default class App extends Component{
       <div>
       
       <BrowserRouter>
-        <Header state={this.state}/>
+        <Header avatar={this.state.avatar} media={this.state.media}/>
         {
           this.state.authorized === false || this.state.authorized === null
           ?

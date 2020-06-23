@@ -1,4 +1,4 @@
-import React,  {useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom"
 import { Avatar, Menu, Dropdown} from 'antd';
 import { BugOutlined, StockOutlined } from '@ant-design/icons'; 
@@ -9,16 +9,7 @@ import NamedLogo from '../Assets/resolved/namedLogo'
 import Hamburger from '../Assets/resolved/hamburger'
 
 
-export default function Header(){
-
-  const [state, setState] = useState({
-    username : "",
-    avatar : "",
-    authorized : false,
-    media : ""
-  });
-
-  useEffect(() => { setState(state) }, [state]);
+export default function Header({avatar, media}){
 
   const menu = (
     <Menu>
@@ -43,7 +34,7 @@ export default function Header(){
       <Menu.Item key="3">
         <Link to='/profile'>
           <div className="MenuItem">
-            <Avatar key={this.state.avatar} shape="square" size={24} src={state.avatar}/>
+            <Avatar key={avatar} shape="square" size={24} src={avatar}/>
             <div className="text">Profile</div>
           </div>
         </Link>
@@ -117,7 +108,7 @@ export default function Header(){
           </div>
           <div className="Col4">
             <Link to='/profile'>
-                <Avatar key={this.state.avatar} shape="square" size={64} src={state.avatar}/>
+                <Avatar key={avatar} shape="square" size={64} src={avatar}/>
             </Link>
           </div> 
         </div>
@@ -126,9 +117,9 @@ export default function Header(){
   }
 
   let view = () => {
-    if(state.media === "phone"){
+    if(media === "phone"){
         return phone()
-    } else if(state.media === "touchpad"){
+    } else if(media === "touchpad"){
         return touchpad()
     }else{
         return laptop()
