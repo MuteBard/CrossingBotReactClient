@@ -263,7 +263,7 @@ export default class BugBody extends Component{
                                     <div>
                                         <p className="PocketColTitle">Your Pocket</p>
                                         <Card>
-                                            {pocketBugs.map((data, idx) => <PocketBug key={idx}  handlePocketClick={handleClick} traits={{name : data.name, image : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
+                                            {pocketBugs.map((data, idx) => <PocketBug key={idx}  handlePocketClick={handleClick} traits={{name : data.name, img : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
                                         </Card>
                                     </div>
                                 :

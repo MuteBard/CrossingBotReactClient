@@ -263,7 +263,7 @@ export default class FishBody extends Component{
                             <div>
                                 <p className="PocketColTitle">Your Pocket</p>
                                 <Card>
-                                    {pocketFishes.map((data,idx) => <PocketFish key = {idx} handlePocketClick={handleClick} traits={{name : data.name, image : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
+                                    {pocketFishes.map((data,idx) => <PocketFish key = {idx} handlePocketClick={handleClick} traits={{name : data.name, img : data.img, bells: data.bells, rarity: data.rarity, availability : data.availability, hover: data.hover, small: data.small}}/>)}
                                 </Card>
                             </div>
                             :
