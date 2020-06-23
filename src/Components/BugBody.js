@@ -5,7 +5,7 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import PocketBug from '../Assets/resolved/bugIcon'
 import "antd/dist/antd.css";
 import "./css/components.css"
-import timing from "../Cron/Timing"
+import time from "../Cron/Timing"
 
 const CATCH = "catch"
 const BUG = "bug"
@@ -148,7 +148,7 @@ export default class BugBody extends Component{
                             <p>You have caught a {name}!</p>
                             <p>Bells: {bells}</p>
                             <p>Rarity Level: {rarity}</p>
-                            <p>Availability: {availability.map(month => `${timing.userFriendlyMonth(month)}, `)}</p>
+                            <p>Availability: {availability.map(month => `${time.interpretMonth(month)}, `)}</p>
                         </Card>
                     </div>
                     :
@@ -242,7 +242,7 @@ export default class BugBody extends Component{
                                     <p>You have caught a {name}!</p>
                                     <p>Bells: {bells}</p>
                                     <p>Rarity Level: {rarity}</p>
-                                    <p>Availability: {availability.map(month => `${timing.userFriendlyMonth(month)}, `)}</p>
+                                    <p>Availability: {availability.map(month => `${time.interpretMonth(month)}, `)}</p>
                                 </Card>
                             </div>
                             :

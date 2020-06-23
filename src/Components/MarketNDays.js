@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Line } from 'react-chartjs-2';
 import * as Route from '../Actions/Route';
-
+import time from "../Cron/Timing"
 
 let data = (parameters) =>{ return {
   labels: parameters.times,
@@ -123,7 +123,7 @@ export default class MarketToday extends Component {
         let colors = this.state.firstRecordedPrice >  this.state.lastRecordedPrice ?  ["#E34A78","#A41943"] : ["#4AE3B5","#2A5D67"] 
         let parameters = {
             title : `TURNIP PRICES FOR ${this.state.earliestDate} - ${this.state.latestDate}`,
-            times :  this.state.turnipsHistory.map(data => `${data.hour}:${data.minute < 10 ? "0"+data.minute : data.minute} ${data.month}/${data.day}`).reverse(),
+            times :  this.state.turnipsHistory.map(data => `${time.localHour(data.hour)}:${data.minute < 10 ? "0"+data.minute : data.minute} ${data.month}/${data.day}`).reverse(),
             now : {
                 name : "Prices",
                 prices : this.state.turnipsHistory.map(data => data.price).reverse(),

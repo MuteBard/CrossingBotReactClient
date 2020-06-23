@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Line } from 'react-chartjs-2';
+import time from "../Cron/Timing"
+
 
 let data = (parameters) =>{ return {
   labels: parameters.times,
@@ -70,9 +72,10 @@ export default class MarketToday extends Component {
 
     view = () => {
         let {turnipData, date, colors} = this.props
+
         let parameters = {
             title : `TURNIP PRICES FOR ${date.month}/${date.day}/${date.year}`,
-            times :  turnipData.map(data => `${data.hour}:${data.minute < 10 ? "0"+data.minute : data.minute}`).reverse(),
+            times :  turnipData.map(data => `${time.localHour(data.hour)}:${data.minute < 10 ? "0"+data.minute : data.minute}`).reverse(),
             now : {
                 name : "Prices",
                 prices : turnipData.map(data => data.price).reverse(),

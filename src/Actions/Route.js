@@ -7,9 +7,6 @@ let CBTC_BASEURL = 'https://crossing-bot-twitch-connector.herokuapp.com';
 let CBAS_BASEURL = 'https://crossing-bot-akka-server.herokuapp.com';
 
 
-
-
-
 //REST (client)
 let RestCall = (config, callback) => {
     axios(config).then(CBTC_response => callback(CBTC_response.data))

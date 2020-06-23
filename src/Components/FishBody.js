@@ -5,7 +5,7 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import PocketFish from '../Assets/resolved/fishIcon'
 import "antd/dist/antd.css";
 import "./css/components.css"
-import timing from "../Cron/Timing"
+import time from "../Cron/Timing"
 
 const CATCH = "catch"
 const FISH = "fish"
@@ -148,7 +148,7 @@ export default class FishBody extends Component{
                                 <p>You have caught a {name}!</p>
                                 <p>Bells: {bells}</p>
                                 <p>Rarity Level: {rarity}</p>
-                                <p>Availability: {availability.map(month => `${timing.userFriendlyMonth(month)}, `)}</p>
+                                <p>Availability: {availability.map(month => `${time.interpretMonth(month)}, `)}</p>
                             </Card>
                         </div>
                         :
@@ -242,7 +242,7 @@ export default class FishBody extends Component{
                                 <p>You have caught a {name}!</p>
                                 <p>Bells: {bells}</p>
                                 <p>Rarity Level: {rarity}</p>
-                                <p>Availability: {availability.map(month => `${timing.userFriendlyMonth(month)}, `)}</p>
+                                <p>Availability: {availability.map(month => `${time.interpretMonth(month)}, `)}</p>
                             </Card>
                         </div>
                         :

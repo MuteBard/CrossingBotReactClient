@@ -1,4 +1,4 @@
-export default function userFriendlyMonth(month){
+let interpretMonth = (month) => {
     let result = ""
     switch(month){
         case "JAN" : 
@@ -42,3 +42,22 @@ export default function userFriendlyMonth(month){
     }
     return result
 }
+
+let localHour = (hour) => {
+    var d = new Date()
+    var gmtHours = -d.getTimezoneOffset()/60;
+    if(hour + gmtHours < 0){
+      return 24 + hour + gmtHours
+    }else if(hour + gmtHours >= 24){
+      return -24 + hour + gmtHours
+    }else{
+      return hour + gmtHours
+    } 
+}
+
+let time = {
+	interpretMonth,
+    localHour
+}
+
+export default time;
