@@ -16,6 +16,7 @@ export function authenticateUser(CBTC_Payload, callback){
     RestCall({
         url : `${CBTC_BASEURL}/authenticateUser`,
         method : "post",
+        timeout: 60 * 5 * 1000,
         data : CBTC_Payload
     }, callback)
 }

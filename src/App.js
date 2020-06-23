@@ -52,7 +52,7 @@ export default class App extends Component{
       <div>
       
       <BrowserRouter>
-        <Header state={this.state} hello={true}/>
+        <Header state={this.state}/>
         {
           this.state.authorized === false || this.state.authorized === null
           ?
