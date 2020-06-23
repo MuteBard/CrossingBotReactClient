@@ -36,9 +36,9 @@ export default function Header({avatar, media}){
         <Link to='/profile'>
           <div className="MenuItem">
               {
-                avatar === ""
+                avatar === null || avatar === ""
                 ?
-                <Avatar icon={<UserOutlined />} />
+                <Avatar shape="square" icon={<UserOutlined />} />
                 :
                 <Avatar key={avatar} shape="square" size={24} src={avatar}/>
               }
@@ -116,9 +116,9 @@ export default function Header({avatar, media}){
           <div className="Col4">
             <Link to='/profile'>
                 {
-                  avatar === ""
+                  avatar === null || avatar === ""
                   ?
-                  <Avatar size={64} icon={<UserOutlined />} />
+                  <Avatar size={64} shape="square" icon={<UserOutlined />} />
                   :
                   <Avatar key={avatar} shape="square" size={64} src={avatar}/>
                 }
