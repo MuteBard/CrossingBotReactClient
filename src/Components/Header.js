@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom"
 import { Avatar, Menu, Dropdown} from 'antd';
-import { BugOutlined, StockOutlined } from '@ant-design/icons'; 
+import { BugOutlined, StockOutlined, UserOutlined  } from '@ant-design/icons'; 
+
 import "antd/dist/antd.css";
 import './css/components.css'
 
@@ -34,7 +35,13 @@ export default function Header({avatar, media}){
       <Menu.Item key="3">
         <Link to='/profile'>
           <div className="MenuItem">
-            <Avatar key={avatar} shape="square" size={24} src={avatar}/>
+              {
+                avatar === ""
+                ?
+                <Avatar icon={<UserOutlined />} />
+                :
+                <Avatar key={avatar} shape="square" size={24} src={avatar}/>
+              }
             <div className="text">Profile</div>
           </div>
         </Link>
@@ -108,7 +115,14 @@ export default function Header({avatar, media}){
           </div>
           <div className="Col4">
             <Link to='/profile'>
-                <Avatar key={avatar} shape="square" size={64} src={avatar}/>
+                {
+                  avatar === ""
+                  ?
+                  <Avatar size={64} icon={<UserOutlined />} />
+                  :
+                  <Avatar key={avatar} shape="square" size={64} src={avatar}/>
+                }
+                
             </Link>
           </div> 
         </div>
