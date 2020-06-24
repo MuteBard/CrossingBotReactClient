@@ -48,7 +48,7 @@ export default class Home extends Component {
        this.props.setGlobalUser(globalState)
       }
     }
-    let encryptedPw = this.state.usernameInput //TODO: add bcrypt
+    let encryptedPw = this.state.passwordInput //TODO: add bcrypt
     let CBAS_Payload = {"username" : this.state.usernameInput, "encryptedPw" : encryptedPw}
     Route.signIn(CBAS_Payload, setUserState)
   }
