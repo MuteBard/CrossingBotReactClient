@@ -36,7 +36,7 @@ export default class Home extends Component {
   }
 
   submitUser(){
-    let setUserState = (data) => {
+    let setUserState = (data) => {    
       this.setState({authorized : data.signIn})
       if( data.signIn === true){
         let globalState = ({
@@ -55,38 +55,72 @@ export default class Home extends Component {
 
   confirmUser(){
     let userAuthenticated = (data) => {
-      if (data !== null){
-        if(data.responded === true){
-          if(data.scenario === 1){
+      console.log(data)
+      let failure = data === null
+      console.log(failure ? "FAILED TO GET RESPONSE FROM CBTC" : "RESPONDED")
+      if(data !== null){
+        let globalState
+        switch(data.scenario){
+            // Scenario 1 : User exists on Twitch and exists on CrossingBot DB and has a CrossingBot password
+          case 1 : 
             this.setState({
               searchPressed : true,
               avatar : data.avatar,
               scenario : data.scenario,
               radio : "SIGN IN"
             })
-
-          }else{
-           let gloabalState = ({
-               username: this.state.usernameInput,
-               avatar : this.state.avatar,
-               authorized : true
+            break;
+          case 2 : 
+            // Scenario 2 : User exists on Twitch and exists on CrossingBot DB but does not have a CrossingBot password but user types !invite
+            globalState = ({
+              username: this.state.usernameInput,
+              avatar : this.state.avatar,
+              scenario : data.scenario,
+              authorized : true
             })
-            this.props.setGlobalUser(gloabalState)
+            this.props.setGlobalUser(globalState)
             Route.signUp(this.generatePayload(data)) 
-          }
-        }else{
-          this.setState({
-            searchPressed : true,
-            scenario : data.scenario
-          })
+            break;
+            case 3 : 
+            // Scenario 3 : User exists on Twitch but does not exist on CrossingBot DB and does not have a CrossingBot password but user types !invite
+            globalState = ({
+              username: this.state.usernameInput,
+              avatar : this.state.avatar,
+              scenario : data.scenario,
+              authorized : true
+            })
+            this.props.setGlobalUser(globalState)
+            Route.signUp(this.generatePayload(data)) 
+            break;
+          case 4 : 
+            // Scenario 4 : Scenario 2 or Scenario 3 but user fails to type !invite
+            this.setState({
+              searchPressed : true,
+              scenario : data.scenario,
+              error : data.error
+            })
+            break;
+          case 5 : 
+            // Scenario 5 : User doesn't not exist on Twitch
+            this.setState({
+              searchPressed : true,
+              scenario : data.scenario,
+              error : data.error
+            })
+            break;
+          default:
+            break;
         }
       }else{
+        // Scenario 6 : 500 error, cbtc server is not functioning
         this.setState({
           searchPressed : true,
-          scenario : 6
+          scenario : 6,
+          error : "server seems to be having a problem"
         })
       }
     }
+    // Scenario 7 : Search has been pressed
     this.setState({
       scenario : 7
     })
