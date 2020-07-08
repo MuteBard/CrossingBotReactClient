@@ -91,6 +91,24 @@ export default class Catch extends Component {
 
     }
 
+        handleCancel = e => {
+        this.setState({
+            visible: false,
+        });
+        setTimeout(() => {
+            this.setState({
+                verified : {
+                    status : "",
+                    marketPrice : 0,
+                    totalBells : 0
+                },
+                select : {
+                    quantity : 1,
+                }
+            });
+        }, 1000);  
+    };
+
     handleChildClick = (action, data) => {
         if (action === CATCH){
             let CBAS_Payload = { username: this.state.username, species : data }
@@ -166,7 +184,7 @@ export default class Catch extends Component {
                         Cancel
                     </Button>
                     ]}
-                > 
+                    > 
                     <p>
                         Sell a couple {this.state.species === BUG ? "bugs" : "fishes"} first before catching more
                     </p>
