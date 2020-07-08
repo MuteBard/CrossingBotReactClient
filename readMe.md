@@ -10,7 +10,7 @@
 
 ### Home.js
 
-Landing page to sign up and sign in to CrossingBot. Users must be signed in to access the Market, Catch and Profile page of the app.
+Landing page to sign up and sign in to CrossingBot. Users must be signed in to access the Market, Catch, and Profile page of the app.
 
 ![home](https://cdn.discordapp.com/attachments/730505885931012136/730505938926305320/home.png)
 
@@ -24,17 +24,17 @@ A dynamic page that toggles between Bug and Fish creatures. Users are able to ca
 
 ### Market.js
 
-A real time market that displays the price change of turnips over a day. Users are also able to view price changed over the last week and month. Users are also able to buy turnips and sell tunips based on the market price. All transactions are recorded at the bottom.
+A real-time market that displays the price change of turnips over a day. Users are also able to view price changed over the last week and month. Users are also able to buy turnips and sell turnips based on the market price. All transactions are recorded at the bottom.
 
 ![market](https://cdn.discordapp.com/attachments/730505885931012136/730505956034609233/market.png)
 
 ### Profile.js
 
-A summary page of your user stats: turnip status, bells and caught creatures.
-Here users are also able to remove crossingbot from their twitch stream should they choose.
+A summary page of your user stats: turnip statuses, bells, and caught creatures.
+Here users are also able to remove CrossingBot from their twitch stream should they choose.
 
 ![profile](https://cdn.discordapp.com/attachments/730505885931012136/730505941983952966/profile.png)
 
 ### SVGs
 
-If you hover over turnip, bug net, fishing rod, or mony bag, there will be a little cute animation. c:
+If you hover over turnip, bug net, fishing rod, or money bag, there will be a little cute animation. c:
