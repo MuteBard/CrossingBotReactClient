@@ -144,6 +144,16 @@
                         font-weight: bold;
                         padding : 8px;
                     }
+                    @media @phone{
+                        .PasswordInput{
+                            margin-left : 0;
+                        }
+                    }
+                    @media @touchpad{
+                        .PasswordInput{
+                            margin-left : 7px;
+                        }
+                    }
                     .button{
                         background-color : @twitch;
                         border: none;
@@ -185,6 +195,7 @@
             }
             @media @phone{
                 .listText{
+                    padding : 2px;
                     font-size: 12px;
                 }
             }
