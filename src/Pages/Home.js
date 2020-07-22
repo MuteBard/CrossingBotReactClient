@@ -74,7 +74,7 @@ export default class Home extends Component {
             // Scenario 2 : User exists on Twitch and exists on CrossingBot DB but does not have a CrossingBot password but user types !invite
             globalState = ({
               username: this.state.usernameInput,
-              avatar : this.state.avatar,
+              avatar : data.avatar,
               scenario : data.scenario,
               authorized : true
             })
@@ -85,7 +85,7 @@ export default class Home extends Component {
             // Scenario 3 : User exists on Twitch but does not exist on CrossingBot DB and does not have a CrossingBot password but user types !invite
             globalState = ({
               username: this.state.usernameInput,
-              avatar : this.state.avatar,
+              avatar : data.avatar,
               scenario : data.scenario,
               authorized : true
             })
