@@ -25,7 +25,7 @@ let interpretMonth = (month) => {
         case "AUG" : 
             result =  "August";
             break;
-        case "SEPT" : 
+        case "SEP" : 
             result =  "September";
             break;
         case "OCT" : 
